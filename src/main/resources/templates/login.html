@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Login Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" media="screen">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/css-index.css}" media="screen">
+
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet"
+          href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic"/>
+</head>
+
+<body data-spy="scroll" data-target="#navbar-scroll">
+
+<div class="fullscreen landing parallax" id="bglogin" data-diff="100">
+
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+
+                    <!-- /.logo -->
+                    <div class="logo wow"><a href=""><img th:src="@{/images/logo.png}" alt="logo"></a>
+                    </div>
+
+                    <!-- /.main title -->
+                    <h1 class="wow">
+                        It is your time for programming
+                    </h1>
+
+                    <!-- /.header paragraph -->
+                    <div class="landing-text wow">
+                        <p>Backyard is a modern and customizable landing page template designed to increase conversion
+                            of your product. Backyard is flexible to suit any kind of your business. Try now and join
+                            with our happy customers!</p>
+                    </div>
+
+                    <!-- /.header button -->
+                    <div class="head-btn wow">
+                        <a href="#feature" class="btn-primary">Features</a>
+                        <a href="#download" class="btn-default">Download</a>
+                    </div>
+
+
+                </div>
+
+                <!-- /.signup form -->
+                <div class="col-md-5">
+                    <div class="signup-header wow fadeInUp">
+                        <div class="panel-heading">
+                            <div class="row" style="text-align: center; padding-bottom: 10px">
+                                <div class="col-xs-6">
+                                    <a href="#" class="active" id="login-form-link">Login</a>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="#" id="register-form-link">Register</a>
+                                </div>
+                            </div>
+                            <hr style="margin-top:0">
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <form id="login-form" th:action="@{/login}" method="POST" class="form-signin">
+                                        <div class="form-group">
+                                            <input type="email" id="email" name="email" th:placeholder="Email"
+                                                   class="form-control input-lg" tabindex="1" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" th:placeholder="Password" value=""
+                                                   id="password" name="password" class="form-control input-lg"
+                                                   tabindex="2" required/>
+                                        </div>
+                                        <div align="center" th:if="${param.error}">
+                                            <p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please
+                                                verify</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <button class="btn btn-primary btn-block btn-lg" name="Submit"
+                                                        value="Login" type="Submit" th:text="Login"
+                                                        tabindex="3" style="margin: 15px 0 0 0"></button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <!--<form autocomplete="off" action="#" th:action="@{/registration}"-->
+                                    <!--th:object="${user}" method="post" class="form-horizontal"-->
+                                    <!--role="form">-->
+                                    <form id="register-form" th:action="@{/registration}" th:object="${user}"
+                                          role="form" method="post" class="form-signin" style="display: none">
+                                        <div class="form-group">
+                                            <input type="text" th:field="*{name}"
+                                                   placeholder="Name" class="form-control input-lg" tabindex="1"/>
+                                            <!--<input type="text" path="firstName" id="firstName" tabindex="1"-->
+                                            <!--class="form-control input-lg" placeholder="Username"/>-->
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" th:field="*{lastName}"
+                                                   placeholder="Last Name" class="form-control input-lg" tabindex="2"/>
+                                            <!--<input type="text" path="lastName" id="lastName" tabindex="2"-->
+                                            <!--class="form-control input-lg" placeholder="Surname"/>-->
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" th:field="*{email}"
+                                                   placeholder="Email" class="form-control input-lg" tabindex="3"/>
+                                            <!--<input type="email" name="email" path="email" id="emailreg" tabindex="3"-->
+                                            <!--class="form-control input-lg" placeholder="Email Address"/>-->
+                                        </div>
+                                        <!--<div class="form-group">-->
+                                        <!--<input type="text" path="ssoId" id="ssoId" tabindex="4"-->
+                                        <!--class="form-control input-lg" placeholder="Login"/>-->
+                                        <!--</div>-->
+                                        <div class="form-group">
+                                            <!--<input type="password" path="password" name="password" tabindex="5"-->
+                                            <!--class="form-control input-lg" placeholder="Password"/>-->
+                                            <input type="password" th:field="*{password}"
+                                                   placeholder="Password" class="form-control input-lg" tabindex="4"/>
+                                            <!--<input path="userProfiles" itemValue="id" itemLabel="type" value="1"-->
+                                            <!--name="userProfile" style="display:none"/>-->
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <button type="submit" name="register-submit" id="register-submit"
+                                                        tabindex="5" class="form-control btn-primary btn-block"
+                                                        style="margin: 0">Register
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/custom.js}"></script>
+</body>
+</html>
