@@ -12,18 +12,37 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UserController {
+
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/user/main", method = RequestMethod.GET)
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
     public ModelAndView userPage() {
         ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
+        User user = findUser();
         modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-        modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
         modelAndView.setViewName("user/main");
         return modelAndView;
     }
 
+    @RequestMapping(value = "/single", method = RequestMethod.GET)
+    public ModelAndView singlePage() {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = findUser();
+        modelAndView.setViewName("user/singleElementary");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/multi", method = RequestMethod.GET)
+    public ModelAndView multiPage1() {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = findUser();
+        modelAndView.setViewName("user/multiprogramming");
+        return modelAndView;
+    }
+
+    private User findUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return userService.findUserByEmail(auth.getName());
+    }
 }
