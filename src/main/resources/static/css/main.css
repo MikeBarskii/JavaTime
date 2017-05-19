@@ -1,3 +1,7 @@
+html {
+    overflow: hidden;
+}
+
 body {
     padding-top: 70px;
 }
@@ -229,4 +233,16 @@ body {
 #editor {
     height: 500px;
     border: 1px solid black;
+}
+
+.validation-message {
+    text-align: center;
+    font-style: normal;
+    color: rgba(255, 28, 25, 0.83);
+}
+
+#bglogin {
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-image: url('../images/bg.jpeg')
 }

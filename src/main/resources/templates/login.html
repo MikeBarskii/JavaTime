@@ -29,7 +29,7 @@
                 <div class="col-md-7">
 
                     <!-- /.logo -->
-                    <div class="logo wow"><a href=""><img th:src="@{/images/logo.png}" alt="logo"></a>
+                    <div class="logo wow"><img th:src="@{/images/logo.png}" alt="logo">
                     </div>
 
                     <!-- /.main title -->
@@ -46,10 +46,9 @@
 
                     <!-- /.header button -->
                     <div class="head-btn wow">
-                        <a href="#feature" class="btn-primary">Features</a>
-                        <a href="#download" class="btn-default">Download</a>
+                        <a href="#" class="btn-primary">Features</a>
+                        <a href="#" class="btn-default">Download</a>
                     </div>
-
 
                 </div>
 
@@ -74,12 +73,12 @@
                                     <form id="login-form" th:action="@{/login}" method="POST" class="form-signin">
                                         <div class="form-group">
                                             <input type="email" id="email" name="email" th:placeholder="Email"
-                                                   class="form-control input-lg" tabindex="1" required/>
+                                                   class="form-control input-lg" tabindex="1" title="Email" required/>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" th:placeholder="Password" value=""
                                                    id="password" name="password" class="form-control input-lg"
-                                                   tabindex="2" required/>
+                                                   tabindex="2" title="Password" required/>
                                         </div>
                                         <div align="center" th:if="${param.error}">
                                             <p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please
@@ -94,40 +93,33 @@
                                         </div>
                                     </form>
 
-                                    <!--<form autocomplete="off" action="#" th:action="@{/registration}"-->
-                                    <!--th:object="${user}" method="post" class="form-horizontal"-->
-                                    <!--role="form">-->
                                     <form id="register-form" th:action="@{/registration}" th:object="${user}"
                                           role="form" method="post" class="form-signin" style="display: none">
                                         <div class="form-group">
                                             <input type="text" th:field="*{name}"
                                                    placeholder="Name" class="form-control input-lg" tabindex="1"/>
-                                            <!--<input type="text" path="firstName" id="firstName" tabindex="1"-->
-                                            <!--class="form-control input-lg" placeholder="Username"/>-->
+                                            <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                                                   class="validation-message"></label>
                                         </div>
                                         <div class="form-group">
                                             <input type="text" th:field="*{lastName}"
                                                    placeholder="Last Name" class="form-control input-lg" tabindex="2"/>
-                                            <!--<input type="text" path="lastName" id="lastName" tabindex="2"-->
-                                            <!--class="form-control input-lg" placeholder="Surname"/>-->
+                                            <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                                   class="validation-message"></label>
                                         </div>
                                         <div class="form-group">
                                             <input type="email" th:field="*{email}"
                                                    placeholder="Email" class="form-control input-lg" tabindex="3"/>
-                                            <!--<input type="email" name="email" path="email" id="emailreg" tabindex="3"-->
-                                            <!--class="form-control input-lg" placeholder="Email Address"/>-->
+                                            <label
+                                                    th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                                    class="validation-message"></label>
                                         </div>
-                                        <!--<div class="form-group">-->
-                                        <!--<input type="text" path="ssoId" id="ssoId" tabindex="4"-->
-                                        <!--class="form-control input-lg" placeholder="Login"/>-->
-                                        <!--</div>-->
                                         <div class="form-group">
-                                            <!--<input type="password" path="password" name="password" tabindex="5"-->
-                                            <!--class="form-control input-lg" placeholder="Password"/>-->
                                             <input type="password" th:field="*{password}"
                                                    placeholder="Password" class="form-control input-lg" tabindex="4"/>
-                                            <!--<input path="userProfiles" itemValue="id" itemLabel="type" value="1"-->
-                                            <!--name="userProfile" style="display:none"/>-->
+                                            <label
+                                                    th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                                    class="validation-message"></label>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-6 col-sm-offset-3">

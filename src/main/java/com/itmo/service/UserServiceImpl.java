@@ -16,8 +16,13 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
+
     @Autowired
     private RoleRepository roleRepository;
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -27,12 +32,39 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void modifyUser(User user) {
+        User userDB = userService.findUserByEmail(user.getEmail());
+        Arrays.stream(User.class.getDeclaredFields()).forEach(f -> mergeUserByField(userDB, user, f.getName()));
+        userRepository.save(userDB);
+    }
+
+    @Override
     public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
-        Role userRole = roleRepository.findByRole("ADMIN");
+        Role userRole = roleRepository.findByRole("USER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         userRepository.save(user);
     }
 
+    private void mergeUserByField(User userDb, User userReq, String field) {
+        switch (field) {
+            case "name":
+                if (userDb.getName() == null || !userDb.getName().equals(userReq.getName()))
+                    userDb.setName(userReq.getName());
+                break;
+            case "lastname":
+                if (userDb.getLastName() == null || !userDb.getLastName().equals(userReq.getLastName()))
+                    userDb.setLastName(userReq.getLastName());
+                break;
+            case "email":
+                if (userDb.getEmail() == null || !userDb.getEmail().equals(userReq.getEmail()))
+                    userDb.setEmail(userReq.getEmail());
+                break;
+            case "company":
+                if (userDb.getCompany() == null || !userDb.getCompany().equals(userReq.getCompany()))
+                    userDb.setCompany(userReq.getCompany());
+                break;
+        }
+    }
 }

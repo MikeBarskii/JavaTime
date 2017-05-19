@@ -17,7 +17,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    public ModelAndView userPage() {
+    public ModelAndView mainPage() {
         ModelAndView modelAndView = new ModelAndView();
         User user = findUser();
         modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
@@ -28,16 +28,31 @@ public class UserController {
     @RequestMapping(value = "/single", method = RequestMethod.GET)
     public ModelAndView singlePage() {
         ModelAndView modelAndView = new ModelAndView();
-        User user = findUser();
         modelAndView.setViewName("user/singleElementary");
         return modelAndView;
     }
 
     @RequestMapping(value = "/multi", method = RequestMethod.GET)
-    public ModelAndView multiPage1() {
+    public ModelAndView multiPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("user/multiprogramming");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/profile", method = RequestMethod.POST)
+    public ModelAndView editUser(User user) {
+        ModelAndView modelAndView = new ModelAndView();
+        userService.modifyUser(user);
+        modelAndView.setViewName("user/profile");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public ModelAndView profile() {
         ModelAndView modelAndView = new ModelAndView();
         User user = findUser();
-        modelAndView.setViewName("user/multiprogramming");
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("user/profile");
         return modelAndView;
     }
 

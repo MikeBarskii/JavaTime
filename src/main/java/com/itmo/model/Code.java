@@ -1,13 +1,13 @@
 package com.itmo.model;
 
-public class UserCode {
+public class Code {
 
     private String code;
 
-    public UserCode() {
+    public Code() {
     }
 
-    public UserCode(String code) {
+    public Code(String code) {
         this.code = code;
     }
 

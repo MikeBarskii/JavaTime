@@ -85,6 +85,7 @@
 
             </div>
             <button id="send" class="btn btn-default" type="submit">Send</button>
+            <p id="demo"></p>
             <button type="button" class="btn btn-default" style="margin-top: 10px;width: 100%">Compile</button>
         </div>
     </div>
@@ -101,6 +102,33 @@
     });
 </script>
 
-</body>
+<script>
+    var minute = 1000 * 60;
+    var time_minutes = 1;
 
+    var countDownDate = new Date(Date.now() + minute * time_minutes).getTime();
+    countDownDate.set
+
+    var x = setInterval(function () {
+        var now = new Date().getTime();
+
+        var distance = countDownDate - now;
+
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
+
+        // If the count down is over
+        if (distance < 0) {
+            clearInterval(x);
+            editor.setReadOnly(true);
+        }
+    }, 1000);
+</script>
+
+</body>
 </html>
