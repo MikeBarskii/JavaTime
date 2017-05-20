@@ -6,8 +6,16 @@ $(document).ready(function () {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/greetings', function (usercode) {
+        stompClient.subscribe('/topic/transfer', function (usercode) {
             showGreeting(JSON.parse(usercode.body).code);
+        });
+        stompClient.subscribe('/topic/checkcode', function (resultcode) {
+            var result = JSON.parse(resultcode.body);
+            for (var i = 0; i < result.length; i++) {
+                var testID = 'test_' + (i + 1);
+                if (result[i]) $('#' + testID).css('background-color', '#6bde6b');
+                else $('#' + testID).css('background-color', '#e44a49');
+            }
         });
     });
 });
@@ -24,20 +32,8 @@ function setConnected(connected) {
     $("#greetings").html("");
 }
 
-// function connect() {
-//     var socket = new SockJS('/gs-guide-websocket');
-//     stompClient = Stomp.over(socket);
-//     stompClient.connect({}, function (frame) {
-//         setConnected(true);
-//         console.log('Connected: ' + frame);
-//         stompClient.subscribe('/topic/greetings', function (greeting) {
-//             showGreeting(JSON.parse(greeting.body).content);
-//         });
-//     });
-// }
-
 function disconnect() {
-    if (stompClient != null) {
+    if (stompClient !== null) {
         stompClient.disconnect();
     }
     setConnected(false);
@@ -46,11 +42,17 @@ function disconnect() {
 
 function sendName() {
     var code = editor.getValue();
-    stompClient.send("/app/hello", {}, JSON.stringify({'code': code}));
+    stompClient.send("/app/send", {}, JSON.stringify({'code': code}));
+}
+
+function sendResult() {
+    $('#resultgroup').css('visibility', 'visible');
+    var code = editor.getValue();
+    stompClient.send("/app/result", {}, JSON.stringify({'code': code}));
 }
 
 function showGreeting(message) {
-    editor.setValue(message)
+    editor.setValue(message);
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
 
@@ -66,6 +68,9 @@ $(function () {
     });
     $("#send").click(function () {
         sendName();
+    });
+    $("#resultCode").click(function () {
+        sendResult();
     });
 });
 

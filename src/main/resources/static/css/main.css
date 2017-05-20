@@ -231,7 +231,7 @@ body {
 }
 
 #editor {
-    height: 500px;
+    height: 520px;
     border: 1px solid black;
 }
 
@@ -245,4 +245,36 @@ body {
     -webkit-background-size: cover;
     background-size: cover;
     background-image: url('../images/bg.jpeg')
+}
+
+#timer {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 16px;
+    background-color: black;
+    color: red;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.checkbutton {
+    margin-top: 10px;
+    width: 100%
+}
+
+.taskbar {
+    font-size: 12px;
+    border: 2px solid black;
+    border-radius: 5px;
+    height: 250px;
+    padding: 10px;
+}
+
+#resultgroup {
+    margin-top: 10px;
+}
+
+#resultgroup li {
+    font-weight: bold;
+    padding: 5px 15px;
 }

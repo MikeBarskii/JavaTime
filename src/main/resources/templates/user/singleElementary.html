@@ -28,18 +28,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Start Bootstrap</a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
+        <a class="navbar-brand" th:href="@{/main}">Main page</a>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
@@ -54,9 +43,7 @@
             </ul>
             <a th:href="@{/logout}" class="logout">Logout</a>
         </div>
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container -->
 </nav>
 
 <!-- Page Content -->
@@ -73,17 +60,45 @@
             </div>
         </div>
 
-        <div class="col-md-9" style="width: 60%">
-            <div id="editor">public static void main(Srtring[] args){
-                }
+        <div class="col-md-9" style="width: 55%">
+            <div id="editor">int mike = 5;
             </div>
         </div>
 
-        <div class="col-md-3" style="width: 20%">
-            <div id="task" style="border:1px solid black; height: 200px;">
+        <div class="col-md-3" style="width: 25%">
+            <div class="taskbar">
+                <p>Дано трехзначное число. Найдите сумму его цифр.</p>
+                <!--<p>Входные данные</p>-->
+                <!--<p>Вводится трехзначное число.</p>-->
 
+                <!--<p>Выходные данные</p>-->
+                <!--<p>Выведите ответ на задачу.</p>-->
+                <p>Пример:</p>
+                <p>входные данные:</p>
+                <h4>179</h4>
+                <p>выходные данные:</p>
+                <h4>17</h4>
             </div>
-            <button type="button" class="btn btn-default" style="margin-top: 10px;width: 100%">Compile</button>
+            <button type="button" class="btn btn-default checkbutton" style="">Compile</button>
+        </div>
+        <div>
+            <ul class="list-group" id="resultgroup">
+                <li class="list-group-item active">
+                    qwea
+                </li>
+                <li class="list-group-item">
+                    asdfasdf
+                </li>
+                <li class="list-group-item">
+                    asdfasdf
+                </li>
+                <li class="list-group-item">
+                    asdfasdf
+                </li>
+                <li class="list-group-item">
+                    asdfasdfasdf
+                </li>
+            </ul>
         </div>
     </div>
 </div>
@@ -91,14 +106,12 @@
 
 <script th:src="@{/ace-builds/src/ace.js}" type="text/javascript" charset="utf-8"></script>
 <script>
+    document.getElementById('editor').style.fontSize = '14px';
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     editor.getSession().setMode("ace/mode/java");
-    editor.setOptions({
-        enableBasicAutocompletion: true
-    });
+    //    editor.gotoLine(1)
 </script>
 
 </body>
-
 </html>
