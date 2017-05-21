@@ -48,10 +48,18 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/multi", method = RequestMethod.GET)
-    public ModelAndView multiPage() {
+    @RequestMapping(value = "/multi/{level}/{test_id}", method = RequestMethod.GET)
+    public ModelAndView multiPage(@PathVariable("level") String level, @PathVariable("test_id") int testID) {
         ModelAndView modelAndView = new ModelAndView();
+
+        String levelXML = setLevelTask(level);
+
+        Map testValues = codeService.findTask(levelXML, testID);
+        Task task = new Task(testValues.get("name").toString(), testValues.get("description").toString(),
+                testValues.get("input").toString(), testValues.get("output").toString());
+
         modelAndView.setViewName("user/multiprogramming");
+        modelAndView.addObject("task", task);
         return modelAndView;
     }
 

@@ -84,40 +84,6 @@ body {
     border-color: #53A3CD;
 }
 
-.forgot-password {
-    text-decoration: underline;
-    color: #888;
-}
-
-.forgot-password:hover,
-.forgot-password:focus {
-    text-decoration: underline;
-    color: #666;
-}
-
-.btn-register {
-    background-color: #1CB94E;
-    outline: none;
-    color: #fff;
-    font-size: 14px;
-    height: auto;
-    font-weight: normal;
-    padding: 14px 0;
-    text-transform: uppercase;
-    border-color: #1CB94A;
-}
-
-.btn-register:hover,
-.btn-register:focus {
-    color: #fff;
-    background-color: #1CA347;
-    border-color: #1CA347;
-}
-
-.remember {
-    color: #dcdcdc;
-}
-
 body {
     height: 100%;
     background-color: rgb(245, 245, 245);
@@ -139,11 +105,6 @@ body {
     background-image: -webkit-linear-gradient(top, #EDEDED 0%, #EAEAEA 8%, #2F2F2F 100%, #AAAAAA 100%);
     background-image: -ms-linear-gradient(top, #EDEDED 0%, #EAEAEA 8%, #2F2F2F 100%, #AAAAAA 100%);
     background-image: linear-gradient(to top, #EDEDED 0%, #EAEAEA 8%, #2F2F2F 100%, #AAAAAA 100%);
-}
-
-.floatRight {
-    float: right;
-    margin-right: 18px;
 }
 
 .has-error {
@@ -182,11 +143,6 @@ body {
     position: absolute;
 }
 
-.login-card {
-    width: 80%;
-    margin: auto;
-}
-
 .login-form {
     padding: 10%;
 }
@@ -205,16 +161,8 @@ body {
 }
 
 .portfolio-item {
+    text-align: center;
     margin-bottom: 25px;
-}
-
-.carousel-holder {
-    margin-bottom: 30px;
-}
-
-.carousel-control,
-.item {
-    border-radius: 4px;
 }
 
 .thumbnail img {
@@ -279,7 +227,7 @@ body {
     padding: 5px 15px;
 }
 
-.readonly-highlight{
+.readonly-highlight {
     background-color: white;
     opacity: 0.2;
     position: absolute;
@@ -291,10 +239,39 @@ body {
 }
 
 .error-actions {
-    margin-top:15px;
-    margin-bottom:15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .error-actions .btn {
-    margin-right:10px;
+    margin-right: 10px;
+}
+
+#spam {
+    background-color: lightgray;
+    border-radius: 5px;
+    margin: auto;
+    width: 85%;
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+#access_error403 {
+    padding-top: 30px;
+    font-size: 60px;
+    font-family: Arial, serif;
+    text-align: center;
+    border-bottom: 1px dashed #333;
+    padding-bottom: 20px;
+}
+
+#gears {
+    text-align: center;
+    color: #333;
+    width: 200px;
+    margin: auto;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.85);
+    /* opacity: 0.85; */
+    padding: 30px 0;
 }

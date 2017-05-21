@@ -29,10 +29,10 @@
                     <a th:href="@{/profile}">Personal Page</a>
                 </li>
                 <li>
-                    <a href="#">Services</a>
+                    <a th:href="@{/single/elem/1}">Single programming</a>
                 </li>
                 <li>
-                    <a href="#">Contact</a>
+                    <a th:href="@{/multi/elem/1}">Multiprogramming</a>
                 </li>
             </ul>
             <a th:href="@{/logout}" class="logout">Logout</a>
@@ -46,7 +46,7 @@
         <div class="col-lg-12">
             <h1 class="page-header" style="margin: 10px 0 15px 0">Personal Page of
                 <a th:href="@{/profile}" style="color:#a33b3b">
-                <span th:utext="${userName}"></span>
+                    <span th:utext="${userName}"></span>
                 </a>
             </h1>
         </div>
@@ -57,32 +57,29 @@
             <a th:href="@{/single/elem/1}">
                 <img class="img-responsive" th:src="@{/images/single.png}" alt="Single programming">
 
-                <h3 style="text-align: center">
+                <h3>
                     <a href="#">Single programming</a>
                 </h3>
             </a>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque
-                urna varius vitae.</p>
+            <p>In this section you can train to solve different tasks alone</p>
         </div>
         <div class="col-md-6 portfolio-item" style="width:33%">
-            <a th:href="@{/multi}">
+            <a th:href="@{/multi/elem/1}">
                 <img class="img-responsive" th:src="@{/images/team.png}" alt="Multiprogramming">
             </a>
-            <h3 style="text-align: center">
+            <h3>
                 <a href="#">Multiprogramming</a>
             </h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque
-                urna varius vitae.</p>
+            <p>In this section you can solve problems with your friend at the same time</p>
         </div>
         <div class="col-md-6 portfolio-item" style="width:33%">
             <a href="#">
                 <img class="img-responsive" src="http://placehold.it/700x400" alt="">
             </a>
-            <h3 style="text-align: center">
+            <h3>
                 <a href="#">Competition with friend</a>
             </h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque
-                urna varius vitae.</p>
+            <p>In this section you can compete with your friend who will solve the problem faster</p>
         </div>
     </div>
 

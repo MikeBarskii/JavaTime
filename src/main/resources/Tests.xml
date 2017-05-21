@@ -2,18 +2,32 @@
 <JAVATIME>
     <ELEMENTARY>
         <TASK id="1">
-            <NAME>Find 3</NAME>
-            <DESCRIPTION>Дано трехзначное число. Найдите сумму его цифр.</DESCRIPTION>
-            <INPUT>256</INPUT>
-            <OUTPUT>358</OUTPUT>
-            <TEST id="1">
-                <INPUT>123</INPUT>
-                <OUTPUT>45</OUTPUT>
-            </TEST>
-            <TEST id="2">
-                <INPUT>345</INPUT>
-                <OUTPUT>367</OUTPUT>
-            </TEST>
+            <NAME>Умножим в 10 раз</NAME>
+            <DESCRIPTION>На вход подаётся целочисленное число. Вернуть его значение умноженное на 10</DESCRIPTION>
+            <INPUT>10</INPUT>
+            <OUTPUT>100</OUTPUT>
+            <TESTS>
+                <TEST id="1">
+                    <INPUT>15</INPUT>
+                    <OUTPUT>150</OUTPUT>
+                </TEST>
+                <TEST id="2">
+                    <INPUT>1</INPUT>
+                    <OUTPUT>10</OUTPUT>
+                </TEST>
+                <TEST id="3">
+                    <INPUT>0</INPUT>
+                    <OUTPUT>0</OUTPUT>
+                </TEST>
+                <TEST id="4">
+                    <INPUT>67</INPUT>
+                    <OUTPUT>670</OUTPUT>
+                </TEST>
+                <TEST id="5">
+                    <INPUT>1000</INPUT>
+                    <OUTPUT>10000</OUTPUT>
+                </TEST>
+            </TESTS>
         </TASK>
         <TASK id="2">
             <NAME>Find 4</NAME>

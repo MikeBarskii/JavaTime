@@ -29,7 +29,7 @@ public class CodeService {
             e.printStackTrace();
         }
 
-        if (task == null){
+        if (task == null) {
             throw new RuntimeException("Task with level: " + level + " and ID: " + id + " was not found");
         }
 
@@ -42,6 +42,35 @@ public class CodeService {
         taskMap.put("output", testValues[4].trim());
 
         return taskMap;
+    }
+
+    public Map<String, String> findTests(String level, int id) {
+        Document doc = this.setDocument();
+        XPath xpath = this.setPath();
+        String tests = null;
+
+        try {
+            XPathExpression expr =
+                    xpath.compile("/JAVATIME/" + level.toUpperCase() + "/TASK[@id='" + id + "']/TESTS");
+            tests = (String) expr.evaluate(doc, XPathConstants.STRING);
+        } catch (XPathExpressionException e) {
+            e.printStackTrace();
+        }
+
+        if (tests == null) {
+            return null;
+        }
+
+        String[] testValues = tests.split("\n");
+
+        Map<String, String> testMap = new HashMap<>();
+
+        //TODO quantity of tests
+        for (int i = 2; i < 21; i += 4) {
+            testMap.put(testValues[i].trim(), testValues[i + 1].trim());
+        }
+
+        return testMap;
     }
 
     private Document setDocument() {

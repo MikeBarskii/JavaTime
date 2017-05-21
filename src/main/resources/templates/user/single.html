@@ -28,17 +28,17 @@
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        <a class="navbar-brand" th:href="@{/main}">Main page</a>
+        <a class="navbar-brand" th:href="@{/main}">Main Page</a>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="">Elementary</a>
+                    <a th:href="@{/single/elem/1}">Elementary</a>
                 </li>
                 <li>
-                    <a href="#">Average</a>
+                    <a th:href="@{/single/aver/1}">Average</a>
                 </li>
                 <li>
-                    <a th:href="@{/single/heavy-1}">Heavy Level</a>
+                    <a th:href="@{/single/heavy/1}">Heavy Level</a>
                 </li>
             </ul>
             <a th:href="@{/logout}" class="logout">Logout</a>
@@ -54,14 +54,18 @@
         <div class="col-md-3" style="width: 20%" th:object="${task}">
             <p class="lead" th:text="${task.name}"></p>
             <div class="list-group">
-                <a th:href="@{/elem/1}" class="list-group-item">Exercise 1</a>
-                <a th:href="@{/elem/2}" class="list-group-item">Exercise 2</a>
-                <a th:href="@{/elem/3}" class="list-group-item">Exercise 3</a>
+                <a th:href="@{/single/elem/1}" class="list-group-item">Exercise 1</a>
+                <a th:href="@{/single/elem/2}" class="list-group-item">Exercise 2</a>
+                <a th:href="@{/single/elem/3}" class="list-group-item">Exercise 3</a>
             </div>
         </div>
 
         <div class="col-md-9" style="width: 55%">
-            <div id="editor">int mike = 5;
+            <div id="editor">public class UserClass {
+    public int result(int input) {
+
+    }
+}
             </div>
         </div>
 

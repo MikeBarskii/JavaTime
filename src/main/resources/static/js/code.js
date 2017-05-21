@@ -7,7 +7,7 @@ $(document).ready(function () {
         setConnected(true);
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/transfer', function (usercode) {
-            showGreeting(JSON.parse(usercode.body).code);
+            showCode(JSON.parse(usercode.body).code);
         });
         stompClient.subscribe('/topic/checkcode', function (resultcode) {
             var result = JSON.parse(resultcode.body);
@@ -40,7 +40,7 @@ function disconnect() {
     console.log("Disconnected");
 }
 
-function sendName() {
+function sendCode() {
     var code = editor.getValue();
     stompClient.send("/app/send", {}, JSON.stringify({'code': code}));
 }
@@ -51,9 +51,8 @@ function sendResult() {
     stompClient.send("/app/result", {}, JSON.stringify({'code': code}));
 }
 
-function showGreeting(message) {
+function showCode(message) {
     editor.setValue(message);
-    $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
 
 $(function () {
@@ -66,8 +65,11 @@ $(function () {
     $("#disconnect").click(function () {
         disconnect();
     });
+    window.setInterval(function(){
+        sendCode();
+    }, 30000);
     $("#send").click(function () {
-        sendName();
+        sendCode();
     });
     $("#resultCode").click(function () {
         sendResult();
