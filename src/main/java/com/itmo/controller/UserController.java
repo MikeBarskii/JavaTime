@@ -1,14 +1,19 @@
 package com.itmo.controller;
 
+import com.itmo.model.Task;
 import com.itmo.model.User;
+import com.itmo.service.CodeService;
 import com.itmo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Map;
 
 @Controller
 public class UserController {
@@ -16,19 +21,30 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CodeService codeService;
+
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public ModelAndView mainPage() {
         ModelAndView modelAndView = new ModelAndView();
         User user = findUser();
-        modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-        modelAndView.setViewName("user/main");
+        modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
+        modelAndView.setViewName("user/index");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/single", method = RequestMethod.GET)
-    public ModelAndView singlePage() {
+    @RequestMapping(value = {"/single/{level}/{test_id}"}, method = RequestMethod.GET)
+    public ModelAndView singlePage(@PathVariable("level") String level, @PathVariable("test_id") int testID) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("user/singleElementary");
+
+        String levelXML = setLevelTask(level);
+
+        Map testValues = codeService.findTask(levelXML, testID);
+        Task task = new Task(testValues.get("name").toString(), testValues.get("description").toString(),
+                testValues.get("input").toString(), testValues.get("output").toString());
+
+        modelAndView.addObject("task", task);
+        modelAndView.setViewName("user/single");
         return modelAndView;
     }
 
@@ -59,5 +75,18 @@ public class UserController {
     private User findUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return userService.findUserByEmail(auth.getName());
+    }
+
+    private String setLevelTask(String level){
+        switch (level) {
+            case "elem":
+                return ("ELEMENTARY");
+            case "aver":
+                return ("AVERAGE");
+            case "heavy":
+                return ("HEAVY");
+            default:
+                return ("ELEMENTARY");
+        }
     }
 }

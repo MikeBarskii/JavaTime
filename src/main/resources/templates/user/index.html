@@ -3,54 +3,90 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Hello WebSocket</title>
-    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/main.css" rel="stylesheet">
-    <script src="/webjars/jquery/jquery.min.js"></script>
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
-    <script type="text/javascript" th:src="@{js/code.js}"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Personal Page">
+    <meta name="author" content="Mike Barskiy">
+
+    <title>Personal Page</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" media="screen">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+
 </head>
+
 <body>
-<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
-    enabled. Please enable
-    Javascript and reload this page!</h2></noscript>
-<div id="main-content" class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="connect">WebSocket connection:</label>
-                    <button id="connect" class="btn btn-default" type="submit">Connect</button>
-                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
-                    </button>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="name">What is your name?</label>
-                    <input type="text" id="name" class="form-control" placeholder="Your name here...">
-                </div>
-                <button id="send" class="btn btn-default" type="submit">Send</button>
-            </form>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/main}">Main Page</a>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a th:href="@{/profile}">Personal Page</a>
+                </li>
+                <li>
+                    <a href="#">Services</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+            <a th:href="@{/logout}" class="logout">Logout</a>
         </div>
     </div>
+</nav>
+
+<div class="container">
+
     <div class="row">
-        <div class="col-md-12">
-            <table id="conversation" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Greetings</th>
-                </tr>
-                </thead>
-                <tbody id="greetings">
-                </tbody>
-            </table>
+        <div class="col-lg-12">
+            <h1 class="page-header" style="margin: 10px 0 15px 0">Personal Page of
+                <a th:href="@{/profile}" style="color:#a33b3b">
+                <span th:utext="${userName}"></span>
+                </a>
+            </h1>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-6 portfolio-item" style="width:33%">
+            <a th:href="@{/single/elem/1}">
+                <img class="img-responsive" th:src="@{/images/single.png}" alt="Single programming">
+
+                <h3 style="text-align: center">
+                    <a href="#">Single programming</a>
+                </h3>
+            </a>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque
+                urna varius vitae.</p>
+        </div>
+        <div class="col-md-6 portfolio-item" style="width:33%">
+            <a th:href="@{/multi}">
+                <img class="img-responsive" th:src="@{/images/team.png}" alt="Multiprogramming">
+            </a>
+            <h3 style="text-align: center">
+                <a href="#">Multiprogramming</a>
+            </h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque
+                urna varius vitae.</p>
+        </div>
+        <div class="col-md-6 portfolio-item" style="width:33%">
+            <a href="#">
+                <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+            </a>
+            <h3 style="text-align: center">
+                <a href="#">Competition with friend</a>
+            </h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque
+                urna varius vitae.</p>
+        </div>
+    </div>
+
 </div>
+
 </body>
 </html>

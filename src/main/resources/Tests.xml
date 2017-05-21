@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JAVATIME>
+    <ELEMENTARY>
+        <TASK id="1">
+            <NAME>Find 3</NAME>
+            <DESCRIPTION>Дано трехзначное число. Найдите сумму его цифр.</DESCRIPTION>
+            <INPUT>256</INPUT>
+            <OUTPUT>358</OUTPUT>
+            <TEST id="1">
+                <INPUT>123</INPUT>
+                <OUTPUT>45</OUTPUT>
+            </TEST>
+            <TEST id="2">
+                <INPUT>345</INPUT>
+                <OUTPUT>367</OUTPUT>
+            </TEST>
+        </TASK>
+        <TASK id="2">
+            <NAME>Find 4</NAME>
+            <DESCRIPTION>DESCRIPTION 2</DESCRIPTION>
+            <INPUT>256</INPUT>
+            <OUTPUT>358</OUTPUT>
+            <TEST id="1">
+                <INPUT>123</INPUT>
+                <OUTPUT>45</OUTPUT>
+            </TEST>
+            <TEST id="2">
+                <INPUT>345</INPUT>
+                <OUTPUT>367</OUTPUT>
+            </TEST>
+        </TASK>
+    </ELEMENTARY>
+    <AVERAGE>
+        <NAME>Karol</NAME>
+        <EMAIL>karol@yourserver.com</EMAIL>
+        <TELEPHONE>306-999-9999</TELEPHONE>
+        <WEB>www.java2s.com</WEB>
+    </AVERAGE>
+    <HEAVY>
+        <NAME>Green</NAME>
+        <EMAIL>green@yourserver.com</EMAIL>
+        <TELEPHONE>202-414-9999</TELEPHONE>
+        <WEB>www.java2s.com</WEB>
+    </HEAVY>
+</JAVATIME>

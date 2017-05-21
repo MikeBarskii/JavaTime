@@ -2,7 +2,9 @@ package com.itmo.controller;
 
 import com.itmo.model.Code;
 import com.itmo.service.ByteCodeLoader;
+import com.itmo.service.CodeService;
 import com.itmo.service.InMemoryJavaCompiler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,9 @@ import java.util.List;
 
 @Controller
 public class CodeController {
+    
+    @Autowired
+    private CodeService codeService;
 
     @MessageMapping("/send")
     @SendTo("/topic/transfer")
@@ -20,13 +25,18 @@ public class CodeController {
         String className = "UserCode";
 
         StringBuilder code = new StringBuilder();
-        code.append("public class ").append(className).append(" {");
-        code.append("public int result() {");
-        code.append("int output = 256;");
         code.append(userCode.getCode());
-        code.append("}}");
 
+        int numberOfFirstLine = code.indexOf("\n");
+        if (numberOfFirstLine >= 0) {
+            code.delete(0, numberOfFirstLine);
+        }
+
+        String firstLine = "public class " + className + " {\n";
+        code.insert(0, firstLine);
         System.out.println(code.toString());
+
+        System.out.println(codeService.findTask("elementary", 1));
 
         byte[] byteCode = InMemoryJavaCompiler.compile(className, code.toString());
         Class fooClass = ByteCodeLoader.load(className, byteCode);

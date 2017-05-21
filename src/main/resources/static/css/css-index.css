@@ -6,12 +6,12 @@
 
 html, body {
     width: 100%;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 body {
-    height: 100%;
-    font-family: "Lato", "Serif";
+    height: 100vh;
+    font-family: "Lato", "Serif", sans-serif;
     font-weight: 300;
     padding: 0;
     margin: 0;
@@ -91,22 +91,21 @@ a:hover {
     width: 100%;
     height: 100%;
     overflow: visible;
-    background: #fff url(../images/loading.gif) no-repeat center center;
 }
 
 .fullscreen {
     width: 100%;
+    height: 100vh;
     min-height: 100%;
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    background-position: 50% 50% \9 !important;
 }
 
 .overlay {
     background-color: rgba(0, 0, 0, 0.5);
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: block;
 }
 
@@ -1028,7 +1027,7 @@ and (orientation: landscape) {
     }
 
     #intro h2, #feature-2 h2 {
-        font-weight: 150;
+        font-weight: 200;
         text-align: center;
     }
 
