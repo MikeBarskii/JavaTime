@@ -5,6 +5,7 @@ import com.itmo.service.ByteCodeLoader;
 import com.itmo.service.CodeService;
 import com.itmo.service.InMemoryJavaCompiler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -35,15 +36,20 @@ public class CodeController {
         StringBuilder code = new StringBuilder();
         code.append(userCode.getCode());
 
-        byte[] byteCode = InMemoryJavaCompiler.compile(className, code.toString());
-
         Class userClass = null;
         Object userObject = null;
         try {
+            byte[] byteCode = InMemoryJavaCompiler.compile(className, code.toString());
             userClass = ByteCodeLoader.load(className, byteCode);
             userObject = userClass.newInstance();
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
+        } catch (RuntimeException e) {
+            handleRuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            handleClassNotFoundException(e);
+        } catch (IllegalAccessException e) {
+            handleIllegalAccessException(e);
+        } catch (InstantiationException e) {
+            handleInstantiationException(e);
         }
 
         if (userClass == null) {
@@ -90,5 +96,30 @@ public class CodeController {
         }
 
         return resultList;
+    }
+
+    @MessageExceptionHandler
+    @SendTo("/topic/error")
+    public String handleClassNotFoundException(ClassNotFoundException ex) {
+        return ex.getMessage();
+    }
+
+    @MessageExceptionHandler
+    @SendTo("/topic/error")
+    public String handleIllegalAccessException(IllegalAccessException ex) {
+        return ex.getMessage();
+    }
+
+    @MessageExceptionHandler
+    @SendTo("/topic/error")
+    public String handleInstantiationException(InstantiationException ex) {
+        return ex.getMessage();
+    }
+
+    @MessageExceptionHandler
+    @SendTo("/topic/error")
+    //TODO add more text about error
+    public String handleRuntimeException(RuntimeException ex) {
+        return ex.getMessage();
     }
 }

@@ -48,7 +48,8 @@ public class LoginController {
             modelAndView.setViewName("login");
         } else {
             userService.saveUser(user);
-            modelAndView.addObject("user", new User());
+            modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
+            //TODO redirect to /main
             modelAndView.setViewName("user/index");
         }
         return modelAndView;

@@ -1,12 +1,11 @@
 package com.itmo.controller;
 
+import com.itmo.model.Role;
 import com.itmo.model.Task;
 import com.itmo.model.User;
 import com.itmo.service.CodeService;
 import com.itmo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Map;
 
 @Controller
-public class UserController {
+public class UserController extends ProjectController {
 
     @Autowired
     private UserService userService;
@@ -28,8 +27,13 @@ public class UserController {
     public ModelAndView mainPage() {
         ModelAndView modelAndView = new ModelAndView();
         User user = findUser();
-        modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
+        for (Role role : user.getRoles()) {
+            if (role.getRole().equals("ADMIN")) {
+                return new ModelAndView("redirect:admin");
+            }
+        }
         modelAndView.setViewName("user/index");
+        modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
         return modelAndView;
     }
 
@@ -80,12 +84,7 @@ public class UserController {
         return modelAndView;
     }
 
-    private User findUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return userService.findUserByEmail(auth.getName());
-    }
-
-    private String setLevelTask(String level){
+    private String setLevelTask(String level) {
         switch (level) {
             case "elem":
                 return ("ELEMENTARY");

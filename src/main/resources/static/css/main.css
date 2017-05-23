@@ -179,7 +179,7 @@ body {
 }
 
 #editor {
-    height: 520px;
+    height: 400px;
     border: 1px solid black;
 }
 
@@ -274,4 +274,61 @@ body {
     background-color: rgba(0, 0, 0, 0.85);
     /* opacity: 0.85; */
     padding: 30px 0;
+}
+
+#compile_error {
+    height: 120px;
+    width: 100%;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-top: 10px
+}
+
+#compile_error h5 {
+    margin: 3px 3px 0 0;
+    float: right;
+}
+
+#compile_error hr {
+    border-top: 1px solid black;
+    margin-bottom: 0;
+}
+
+#user_error {
+    width: 100%;
+    color: rgb(198, 25, 25);
+    padding: 5px;
+}
+
+.rating {
+    text-align: center;
+    font-weight: bold;
+}
+
+.user_table {
+    text-align: center;
+}
+
+.user_table .title_tr {
+    border-bottom: 2px solid black;
+}
+
+.user_table .title_tr th {
+    text-align: center;
+}
+
+#competition_add {
+    padding: 2px 5px;
+}
+
+#competition_add a {
+    width: 100%;
+}
+
+#competition_append {
+    padding-top: 20px;
+}
+
+.competitions_buttons button, .competitions_buttons a {
+    width: 30%;
 }

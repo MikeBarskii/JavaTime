@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comptetitions</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" media="screen">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+</head>
+<body>
+<div class="panel panel-default">
+
+    <div class="container">
+
+        <div class="row">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <a class="navbar-brand" th:href="@{/main}">Main Page</a>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a th:href="@{/profile}">Profile</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/competitions}">Competitions</a>
+                            </li>
+                        </ul>
+                        <a th:href="@{/logout}" class="logout">Logout</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="panel-heading rating">Competitions</div>
+
+            <!-- Table -->
+            <table class="table user_table">
+                <tr class="title_tr">
+                    <th>№</th>
+                    <th>Name</th>
+                    <th>Due Date</th>
+                    <th>Participants</th>
+                    <th>Winner</th>
+                    <th id="competition_add"><a th:href="@{/competition_add}" class="btn btn-success">Add</a></th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Find 3 people</td>
+                    <td>25.05.2017</td>
+                    <td>13</td>
+                    <td>Mikhail Barskiy</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

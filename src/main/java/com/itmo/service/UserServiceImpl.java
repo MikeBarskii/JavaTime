@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -43,8 +44,13 @@ public class UserServiceImpl implements UserService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
         Role userRole = roleRepository.findByRole("USER");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userRepository.save(user);
+    }
+
+    @Override
+    public List<User> findUsersByActive(int active) {
+        return userRepository.findUsersByActive(active);
     }
 
     private void mergeUserByField(User userDb, User userReq, String field) {
@@ -67,4 +73,5 @@ public class UserServiceImpl implements UserService {
                 break;
         }
     }
+
 }
