@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adding Task</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" media="screen">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+</head>
+
+<body>
+<div class="row">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/main}">Main Page</a>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a th:href="@{/profile}">Profile</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/competitions}">Competitions</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/tasks}">Tasks</a>
+                    </li>
+                </ul>
+                <a th:href="@{/logout}" class="logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="row">
+        <form class="form-horizontal" th:action="@{/task_add}" method="POST" role="form">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Task</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="task_name">Name</label>
+                    <div class="col-md-5">
+                        <input id="task_name" th:field="${task.name}" placeholder="Task Name"
+                               class="form-control input-md" type="text" tabindex="1" required>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="description">Description</label>
+                    <div class="col-md-4">
+                        <textarea id="description" th:field="${task.description}" placeholder="Description"
+                                  class="form-control input-md" tabindex="2"
+                                  style="height: 90px" required>
+                        </textarea>
+                    </div>
+                </div>
+
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="example_1">Example</label>
+                    <div class="col-md-2">
+                        <input id="example_1" th:field="${task.input}" placeholder="EXAMPLE INPUT"
+                               class="form-control input-md" tabindex="3"
+                               type="text" required>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label"></label>
+                    <div class="col-md-2">
+                        <input th:field="${task.output}" placeholder="EXAMPLE OUTPUT"
+                               class="form-control input-md" tabindex="4"
+                               type="text" required>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="input_1">Tests</label>
+                    <div class="col-md-2">
+                        <input id="input_1" placeholder="INPUT №1" class="form-control input-md" type="text"
+                               tabindex="5">
+                    </div>
+                    <div class="col-md-2">
+                        <input placeholder="INPUT №2" class="form-control input-md" type="text" tabindex="7">
+                    </div>
+                    <div class="col-md-2">
+                        <input placeholder="INPUT №3" class="form-control input-md" type="text" tabindex="9">
+                    </div>
+                    <div class="col-md-2">
+                        <input placeholder="INPUT №4" class="form-control input-md" type="text" tabindex="11">
+                    </div>
+                    <div class="col-md-2">
+                        <input placeholder="INPUT №5" class="form-control input-md" type="text" tabindex="13">
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label"></label>
+                    <div class="col-md-2">
+                        <input placeholder="OUTPUT №1" class="form-control input-md" type="text" tabindex="6">
+                    </div>
+                    <div class="col-md-2">
+                        <input placeholder="OUTPUT №2" class="form-control input-md" type="text" tabindex="8">
+                    </div>
+                    <div class="col-md-2">
+                        <input placeholder="OUTPUT №3" class="form-control input-md" type="text" tabindex="10">
+                    </div>
+                    <div class="col-md-2">
+                        <input placeholder="OUTPUT №4" class="form-control input-md" type="text" tabindex="12">
+                    </div>
+                    <div class="col-md-2">
+                        <input placeholder="OUTPUT №5" class="form-control input-md" type="text" tabindex="14">
+                    </div>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="task_level">Task Level</label>
+                    <div class="col-md-4">
+                        <select id="task_level" th:field="${level.level}" class="form-control" tabindex="15">
+                            <option th:each="level : ${levels}"
+                                    th:value="${level.level}"
+                                    th:text="${level.level}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="submit"></label>
+                    <div class="col-md-4 adding_buttons">
+                        <button id="submit" name="submit" class="btn btn-success" tabindex="16">Add
+                        </button>
+                        <button class="btn btn-primary" value="Cancel" type="reset">Cancel</button>
+                        <a class="btn btn-default" th:href="@{/tasks}">Back</a>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

@@ -29,6 +29,9 @@
                             <li>
                                 <a th:href="@{/competitions}">Competitions</a>
                             </li>
+                            <li>
+                                <a th:href="@{/tasks}">Tasks</a>
+                            </li>
                         </ul>
                         <a th:href="@{/logout}" class="logout">Logout</a>
                     </div>
@@ -46,8 +49,8 @@
                     <th>Wins</th>
                     <th>Email</th>
                 </tr>
-                <tr th:each="user : ${users}">
-                    <td>1</td>
+                <tr th:each="user,iter : ${users}">
+                    <td th:text="${iter.index}+1">1</td>
                     <td th:text="${user.name}"></td>
                     <td th:text="${user.lastName}"></td>
                     <td>2</td>

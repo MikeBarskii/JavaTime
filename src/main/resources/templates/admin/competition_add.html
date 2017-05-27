@@ -11,6 +11,9 @@
     <link rel="stylesheet" th:href="@{/css/main.css}">
 
     <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
 </head>
 
 <body>
@@ -26,6 +29,9 @@
                     <li>
                         <a th:href="@{/competitions}">Competitions</a>
                     </li>
+                    <li>
+                        <a th:href="@{/tasks}">Tasks</a>
+                    </li>
                 </ul>
                 <a th:href="@{/logout}" class="logout">Logout</a>
             </div>
@@ -35,7 +41,7 @@
 
 <div class="container">
     <div class="row">
-        <form class="form-horizontal">
+        <form class="form-horizontal" th:action="@{/competition_add}" method="POST" role="form">
             <fieldset>
 
                 <!-- Form Name -->
@@ -43,80 +49,10 @@
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="competition_name">Name</label>
+                    <label class="col-md-2 control-label" for="competition_name">Competition Name</label>
                     <div class="col-md-5">
-                        <input id="competition_name" name="name" placeholder="Competition Name"
-                               class="form-control input-md" type="text" required>
-
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-2 control-label" for="description">Description</label>
-                    <div class="col-md-4">
-                        <textarea id="description" name="description" placeholder="Description"
-                                  class="form-control input-md"
-                                  style="height: 90px" required>
-                        </textarea>
-                    </div>
-                </div>
-
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-2 control-label" for="example_1">Example</label>
-                    <div class="col-md-2">
-                        <input id="example_1" name="example_1" placeholder="EXAMPLE INPUT" class="form-control input-md"
-                               type="text">
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-2 control-label"></label>
-                    <div class="col-md-2">
-                        <input placeholder="EXAMPLE OUTPUT" class="form-control input-md" type="text">
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-2 control-label" for="input_1">Tests</label>
-                    <div class="col-md-2">
-                        <input id="input_1" placeholder="INPUT №1" class="form-control input-md" type="text">
-                    </div>
-                    <div class="col-md-2">
-                        <input placeholder="INPUT №2" class="form-control input-md" type="text">
-                    </div>
-                    <div class="col-md-2">
-                        <input placeholder="INPUT №3" class="form-control input-md" type="text">
-                    </div>
-                    <div class="col-md-2">
-                        <input placeholder="INPUT №4" class="form-control input-md" type="text">
-                    </div>
-                    <div class="col-md-2">
-                        <input placeholder="INPUT №5" class="form-control input-md" type="text">
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-2 control-label"></label>
-                    <div class="col-md-2">
-                        <input placeholder="OUTPUT №1" class="form-control input-md" type="text">
-                    </div>
-                    <div class="col-md-2">
-                        <input placeholder="OUTPUT №2" class="form-control input-md" type="text">
-                    </div>
-                    <div class="col-md-2">
-                        <input placeholder="OUTPUT №3" class="form-control input-md" type="text">
-                    </div>
-                    <div class="col-md-2">
-                        <input placeholder="OUTPUT №4" class="form-control input-md" type="text">
-                    </div>
-                    <div class="col-md-2">
-                        <input placeholder="OUTPUT №5" class="form-control input-md" type="text">
+                        <input id="competition_name" th:field="${competition.name}" placeholder="Competition Name"
+                               class="form-control input-md" type="text" tabindex="1" required>
                     </div>
                 </div>
 
@@ -124,30 +60,42 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="deadline">Expected Deadline</label>
                     <div class="col-md-4">
-                        <input id="deadline" name="deadline" placeholder="date" class="form-control input-md"
-                               type="datetime-local" required>
+                        <input id="deadline" th:field="${competition.due_date}" name="deadline" placeholder="date"
+                               class="form-control input-md"
+                               type="datetime-local" tabindex="15" required>
                     </div>
                 </div>
 
-                <!-- Select Basic -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="uregency">Urgency</label>
+                    <label class="col-md-2 control-label">Users</label>
                     <div class="col-md-4">
-                        <select id="uregency" name="uregency" class="form-control">
-                            <option value="NormalLevel">Normal Level</option>
-                            <option value="Urgent">Urgent</option>
-                            <option value="VeryUrgent">Very Urgent</option>
+                        <select id="competition_users" multiple class="form-control" size="5">
+                            <option th:each="user : ${users}" th:text="${user.name}"></option>
                         </select>
                     </div>
+                    <input type="button" name="Button" id="select_all_users" value="Select All"/>
                 </div>
+
+                <!--&lt;!&ndash; Select Basic &ndash;&gt;-->
+                <!--<div class="form-group">-->
+                <!--<label class="col-md-2 control-label" for="task_level">Task Level</label>-->
+                <!--<div class="col-md-4">-->
+                <!--<select id="task_level" th:field="${level.level}" class="form-control">-->
+                <!--<option th:each="level : ${levels}"-->
+                <!--th:value="${level.level}"-->
+                <!--th:text="${level.level}"></option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</div>-->
 
                 <!-- Button -->
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="submit"></label>
-                    <div class="col-md-4 competitions_buttons">
-                        <button id="submit" name="submit" class="btn btn-success" style="width:30%">Add</button>
-                        <button class="btn btn-primary" style="width:30%" value="Cancel" type="reset">Cancel</button>
-                        <a class="btn btn-default" th:href="@{/admin}">Back</a>
+                    <div class="col-md-4 adding_buttons">
+                        <button id="submit" name="submit" class="btn btn-success" tabindex="16">Add
+                        </button>
+                        <button class="btn btn-primary" value="Cancel" type="reset">Cancel</button>
+                        <a class="btn btn-default" th:href="@{/competitions}">Back</a>
                     </div>
                 </div>
 
@@ -156,5 +104,12 @@
 
     </div>
 </div>
+
+<script>
+    $('#select_all_users').click(function () {
+        $('#competition_users').find('option').prop('selected', true);
+    });
+</script>
+
 </body>
 </html>

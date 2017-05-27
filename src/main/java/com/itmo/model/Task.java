@@ -1,12 +1,60 @@
 package com.itmo.model;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
+@Table(name = "task")
 public class Task {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "task_id")
+    private int task_id;
+
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "input")
     private String input;
+
+    @Column(name = "output")
+    private String output;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "task_level", joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "level_id"))
+    private Set<Level> levels;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "task_user", joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> users;
+
+    public int getTask_id() {
+        return task_id;
+    }
+
+    public void setTask_id(int task_id) {
+        this.task_id = task_id;
+    }
+
+    public Set<Level> getLevels() {
+        return levels;
+    }
+
+    public void setLevels(Set<Level> levels) {
+        this.levels = levels;
+    }
+
+    public int getId() {
+        return task_id;
+    }
+
+    public void setId(int id) {
+        this.task_id = id;
+    }
 
     public String getName() {
         return name;
@@ -40,13 +88,23 @@ public class Task {
         this.output = output;
     }
 
-    private String output;
-
     public Task(String name, String description, String input, String output) {
         this.name = name;
         this.description = description;
         this.input = input;
         this.output = output;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Task() {
+
     }
 
 }

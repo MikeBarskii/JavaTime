@@ -53,6 +53,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUsersByActive(active);
     }
 
+    @Override
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
+    }
+
     private void mergeUserByField(User userDb, User userReq, String field) {
         switch (field) {
             case "name":

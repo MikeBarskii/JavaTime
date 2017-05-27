@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Comptetitions</title>
+    <title>Tasks</title>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" media="screen">
     <link rel="stylesheet" th:href="@{/css/main.css}">
@@ -38,25 +38,23 @@
                 </div>
             </nav>
 
-            <div class="panel-heading rating">Competitions</div>
+            <div class="panel-heading rating">Tasks</div>
 
             <!-- Table -->
             <table class="table user_table">
                 <tr class="title_tr">
                     <th>№</th>
                     <th>Name</th>
-                    <th>Due Date</th>
-                    <th>Participants</th>
-                    <th>Winner</th>
-                    <th id="competition_add"><a th:href="@{/competition_add}" class="btn btn-success">Add</a></th>
+                    <th class="break_description">Description</th>
+                    <th>Level</th>
+                    <th id="task_add"><a th:href="@{/task_add}" class="btn btn-success">Add</a></th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Find 3 people</td>
-                    <td>25.05.2017</td>
-                    <td>13</td>
-                    <td>Mikhail Barskiy</td>
-                    <td></td>
+                <tr th:each="task,iter : ${tasks}">
+                    <td th:text="${iter.index}+1"></td>
+                    <td th:text="${task.name}"></td>
+                    <td class="break_description"><p th:text="${task.description}"></p></td>
+                    <td th:text="${task.getLevels().iterator().next().getLevel().toLowerCase()}"></td>
+                    <!--<td><a class="btn btn-default">Profile</a></td>-->
                 </tr>
             </table>
         </div>

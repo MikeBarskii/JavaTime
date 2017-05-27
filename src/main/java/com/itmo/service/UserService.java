@@ -12,4 +12,6 @@ public interface UserService {
     void modifyUser(User user);
 
     List<User> findUsersByActive(int active);
+
+    List<User> findAllUsers();
 }

@@ -317,18 +317,19 @@ body {
     text-align: center;
 }
 
-#competition_add {
+#competition_add, #task_add {
     padding: 2px 5px;
 }
 
-#competition_add a {
+#competition_add a, #task_add a {
     width: 100%;
 }
 
-#competition_append {
-    padding-top: 20px;
+.adding_buttons button, .adding_buttons a {
+    width: 30%;
 }
 
-.competitions_buttons button, .competitions_buttons a {
-    width: 30%;
+.break_description, .break_description p {
+    width: 450px;
+    word-wrap: break-word;
 }

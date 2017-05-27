@@ -67,19 +67,19 @@ public class UserController extends ProjectController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/profile", method = RequestMethod.POST)
-    public ModelAndView editUser(User user) {
-        ModelAndView modelAndView = new ModelAndView();
-        userService.modifyUser(user);
-        modelAndView.setViewName("user/profile");
-        return modelAndView;
-    }
-
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public ModelAndView profile() {
         ModelAndView modelAndView = new ModelAndView();
         User user = findUser();
         modelAndView.addObject("user", user);
+        modelAndView.setViewName("user/profile");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/profile", method = RequestMethod.POST)
+    public ModelAndView editUser(User user) {
+        ModelAndView modelAndView = new ModelAndView();
+        userService.modifyUser(user);
         modelAndView.setViewName("user/profile");
         return modelAndView;
     }

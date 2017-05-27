@@ -18,9 +18,23 @@
     <div class="container">
         <a class="navbar-brand" th:href="@{/main}">Main Page</a>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
+            <ul th:if="${user.getRoles().iterator().next().getRole().equals('USER')}" class="nav navbar-nav">
                 <li>
-                    <a href="#">Friends List</a>
+                    <a th:href="@{/single/elem/1}">Single programming</a>
+                </li>
+                <li>
+                    <a th:href="@{/multi/elem/1}">Multiprogramming</a>
+                </li>
+            </ul>
+            <ul th:if="${user.getRoles().iterator().next().getRole().equals('ADMIN')}" class="nav navbar-nav">
+                <li>
+                    <a th:href="@{/admin}">Users</a>
+                </li>
+                <li>
+                    <a th:href="@{/competitions}">Competitions</a>
+                </li>
+                <li>
+                    <a th:href="@{/tasks}">Tasks</a>
                 </li>
             </ul>
             <a th:href="@{/logout}" class="logout">Logout</a>
