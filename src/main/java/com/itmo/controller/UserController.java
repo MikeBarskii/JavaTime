@@ -1,9 +1,11 @@
 package com.itmo.controller;
 
+import com.itmo.model.Competition;
 import com.itmo.model.Role;
 import com.itmo.model.Task;
 import com.itmo.model.User;
 import com.itmo.service.CodeService;
+import com.itmo.service.CompetitionService;
 import com.itmo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -22,6 +25,9 @@ public class UserController extends ProjectController {
 
     @Autowired
     private CodeService codeService;
+
+    @Autowired
+    private CompetitionService competitionService;
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public ModelAndView mainPage() {
@@ -71,6 +77,16 @@ public class UserController extends ProjectController {
     public ModelAndView profile() {
         ModelAndView modelAndView = new ModelAndView();
         User user = findUser();
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("user/profile");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/competition", method = RequestMethod.GET)
+    public ModelAndView userCompetitions() {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = findUser();
+        List<Competition> competitions = competitionService.findAllByUser(user);
         modelAndView.addObject("user", user);
         modelAndView.setViewName("user/profile");
         return modelAndView;

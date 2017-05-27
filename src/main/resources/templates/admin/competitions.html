@@ -5,12 +5,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Comptetitions</title>
+    <title>Competitions</title>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" media="screen">
     <link rel="stylesheet" th:href="@{/css/main.css}">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
 </head>
 <body>
 <div class="panel panel-default">
@@ -27,7 +33,7 @@
                                 <a th:href="@{/profile}">Profile</a>
                             </li>
                             <li>
-                                <a th:href="@{/competitions}">Competitions</a>
+                                <a th:href="@{/admin_competitions}">Competitions</a>
                             </li>
                             <li>
                                 <a th:href="@{/tasks}">Tasks</a>
@@ -50,13 +56,22 @@
                     <th>Winner</th>
                     <th id="competition_add"><a th:href="@{/competition_add}" class="btn btn-success">Add</a></th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Find 3 people</td>
-                    <td>25.05.2017</td>
-                    <td>13</td>
-                    <td>Mikhail Barskiy</td>
-                    <td></td>
+                <tr th:each="competition,iter : ${competitions}">
+                    <td th:text="${iter.index}+1"></td>
+                    <td th:text="${competition.name}"></td>
+                    <td th:text="${competition.due_date}">></td>
+                    <td th:text="${competition.participants}"></td>
+                    <td th:text="${competition.winner}"></td>
+                    <td>
+                        <a href="#">
+                            <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Edit
+                            </button>
+                        </a>
+                        <a href="#">
+                            <button class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Delete
+                            </button>
+                        </a>
+                    </td>
                 </tr>
             </table>
         </div>

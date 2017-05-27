@@ -30,4 +30,9 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> findAllTasks() {
         return taskRepository.findAll();
     }
+
+    @Override
+    public List<Task> findAllByLevel(Level level) {
+        return taskRepository.findAllByLevelsContains(level);
+    }
 }

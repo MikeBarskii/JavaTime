@@ -24,21 +24,13 @@ public class Task {
     @Column(name = "output")
     private String output;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(name = "task_level", joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "level_id"))
     private Set<Level> levels;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(name = "task_user", joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users;
-
-    public int getTask_id() {
-        return task_id;
-    }
-
-    public void setTask_id(int task_id) {
-        this.task_id = task_id;
-    }
 
     public Set<Level> getLevels() {
         return levels;
@@ -48,11 +40,11 @@ public class Task {
         this.levels = levels;
     }
 
-    public int getId() {
+    public int getTask_id() {
         return task_id;
     }
 
-    public void setId(int id) {
+    public void setTask_id(int id) {
         this.task_id = id;
     }
 

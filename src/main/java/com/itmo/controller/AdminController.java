@@ -4,11 +4,13 @@ import com.itmo.model.Competition;
 import com.itmo.model.Level;
 import com.itmo.model.Task;
 import com.itmo.model.User;
+import com.itmo.service.CompetitionService;
 import com.itmo.service.LevelService;
 import com.itmo.service.TaskService;
 import com.itmo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,20 +30,24 @@ public class AdminController extends ProjectController {
     @Autowired
     private LevelService levelService;
 
+    @Autowired
+    private CompetitionService competitionService;
+
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView adminPage() {
         ModelAndView modelAndView = new ModelAndView();
         List<User> users = userService.findUsersByActive(1);
+
         modelAndView.addObject("users", users);
         modelAndView.setViewName("admin/users_list");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/competitions", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin_competitions", method = RequestMethod.GET)
     public ModelAndView competitionsPage() {
         ModelAndView modelAndView = new ModelAndView();
-//        List<User> users = userService.findUsersByActive(1);
-//        modelAndView.addObject("users", users);
+        List<Competition> competitions = competitionService.findAllCompetitions();
+        modelAndView.addObject("competitions", competitions);
         modelAndView.setViewName("admin/competitions");
         return modelAndView;
     }
@@ -49,26 +55,33 @@ public class AdminController extends ProjectController {
     @RequestMapping(value = "/competition_add", method = RequestMethod.GET)
     public ModelAndView addCompetitionPage() {
         ModelAndView modelAndView = new ModelAndView();
-        List<Level> levels = levelService.findAllLevels();
-        List<User> users = userService.findAllUsers();
-        modelAndView.addObject("levels", levels);
-        modelAndView.addObject("users", users);
+        List<User> allUsers = userService.findAllUsers();
+        List<Task> elementaryTasks = findTasksByLevel("elementary");
+        List<Task> averageTasks = findTasksByLevel("average");
+        List<Task> heavyTasks = findTasksByLevel("heavy");
+        modelAndView.addObject("allUsers", allUsers);
+        modelAndView.addObject("elementary_tasks", elementaryTasks);
+        modelAndView.addObject("average_tasks", averageTasks);
+        modelAndView.addObject("heavy_tasks", heavyTasks);
         modelAndView.addObject("competition", new Competition());
         modelAndView.setViewName("admin/competition_add");
         return modelAndView;
     }
 
     @RequestMapping(value = "/competition_add", method = RequestMethod.POST)
-    public ModelAndView addCompetition() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("competition", new Competition());
-        return new ModelAndView("redirect:competitions");
+    public ModelAndView addCompetition(Competition competition, BindingResult bindingResult) {
+        int participants = competition.getUsers().size();
+        competition.setParticipants(participants);
+
+        competitionService.saveCompetition(competition);
+        return new ModelAndView("redirect:admin_competitions");
     }
 
     @RequestMapping(value = "/tasks", method = RequestMethod.GET)
     public ModelAndView tasksPage() {
         ModelAndView modelAndView = new ModelAndView();
         List<Task> tasks = taskService.findAllTasks();
+
         modelAndView.addObject("tasks", tasks);
         modelAndView.setViewName("admin/tasks");
         return modelAndView;
@@ -78,6 +91,7 @@ public class AdminController extends ProjectController {
     public ModelAndView addTaskPage() {
         ModelAndView modelAndView = new ModelAndView();
         List<Level> levels = levelService.findAllLevels();
+
         modelAndView.addObject("levels", levels);
         modelAndView.addObject("task", new Task());
         modelAndView.addObject("level", new Level());
@@ -90,13 +104,9 @@ public class AdminController extends ProjectController {
         taskService.saveTask(task, level);
         return new ModelAndView("redirect:tasks");
     }
-//    @RequestMapping(value = "/user_profile", method = RequestMethod.GET)
-//    public ModelAndView userProfile(User user) {
-//        ModelAndView modelAndView = new ModelAndView();
-//        User userDB = userService.findUserByEmail(user.getEmail());
-//        modelAndView.addObject("user", userDB);
-//        modelAndView.setViewName("user/profile");
-//        return modelAndView;
-//    }
 
+    private List<Task> findTasksByLevel(String levelName) {
+        Level level = levelService.findLevelByName(levelName.toLowerCase());
+        return taskService.findAllByLevel(level);
+    }
 }
