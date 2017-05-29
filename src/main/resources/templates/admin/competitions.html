@@ -10,10 +10,9 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" media="screen">
     <link rel="stylesheet" th:href="@{/css/main.css}">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
 
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 
@@ -63,12 +62,12 @@
                     <td th:text="${competition.participants}"></td>
                     <td th:text="${competition.winner}"></td>
                     <td>
-                        <a href="#">
-                            <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Edit
+                        <a th:href="@{/competition_edit/} + ${competition.id}">
+                            <button class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Edit
                             </button>
                         </a>
-                        <a href="#">
-                            <button class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Delete
+                        <a th:href="@{/competition_remove/} + ${competition.id}">
+                            <button class="btn btn-primary"><span class="glyphicon glyphicon-remove"></span> Delete
                             </button>
                         </a>
                     </td>

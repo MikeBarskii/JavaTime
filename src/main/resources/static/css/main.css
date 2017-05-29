@@ -321,8 +321,12 @@ body {
     padding: 2px 5px;
 }
 
-#competition_add a, #task_add a {
+#task_add a {
     width: 100%;
+}
+
+#competition_add a {
+    width: 50%;
 }
 
 .adding_buttons button, .adding_buttons a {

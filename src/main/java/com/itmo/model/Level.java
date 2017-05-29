@@ -6,22 +6,21 @@ import javax.persistence.*;
 @Table(name = "level")
 public class Level {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "level_id")
-    private int level_id;
-
-    @Column(name = "level")
+    private long id;
     private String level;
 
-    public int getId() {
-        return level_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "level_id", unique = true, nullable = false)
+    public long getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        this.level_id = id;
+    public void setId(long id) {
+        this.id = id;
     }
 
+    @Column(name = "level")
     public String getLevel() {
         return level;
     }

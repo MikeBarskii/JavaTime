@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Mike Barskiy">
 
-    <title>Multiprogramming</title>
+    <title>Single programming</title>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" media="screen">
     <link rel="stylesheet" th:href="@{/css/main.css}">
@@ -38,13 +38,13 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a th:href="@{/multi/elem/1}">Elementary</a>
+                    <a th:href="@{/single/elem/1}">Elementary</a>
                 </li>
                 <li>
-                    <a th:href="@{/multi/aver/1}">Average</a>
+                    <a th:href="@{/single/aver/1}">Average</a>
                 </li>
                 <li>
-                    <a th:href="@{/multi/heavy/1}">Heavy Level</a>
+                    <a th:href="@{/single/heavy/1}">Heavy Level</a>
                 </li>
             </ul>
             <a th:href="@{/logout}" class="logout">Logout</a>
@@ -58,11 +58,12 @@
     <div class="row">
 
         <div class="col-md-3" style="width: 20%" th:object="${task}">
-            <p class="lead" th:text="${task.name}"></p>
+            <p class="lead" th:text="${tasks.iterator().next().name}"></p>
             <div class="list-group">
-                <a th:href="@{/multi/elem/1}" class="list-group-item">Exercise №1</a>
-                <a th:href="@{/multi/elem/2}" class="list-group-item">Exercise №2</a>
-                <a th:href="@{/multi/elem/3}" class="list-group-item">Exercise №3</a>
+                <a class="list-group-item"
+                   th:each="task : ${tasks}"
+                   th:text="${task.name}"
+                   th:href="@{/competition/} + ${task.id}"></a>
             </div>
         </div>
 
@@ -84,7 +85,7 @@
 
         <div class="col-md-3" style="width: 25%">
             <div class="taskbar">
-                <p th:text="${task.description}"></p>
+                <p th:text="${tasks.iterator().next().description}"></p>
                 <!--<p>Входные данные</p>-->
                 <!--<p>Вводится трехзначное число.</p>-->
 
@@ -92,36 +93,33 @@
                 <!--<p>Выведите ответ на задачу.</p>-->
                 <p>Пример:</p>
                 <p>входные данные:</p>
-                <h4 th:text="${task.input}"></h4>
+                <h4 th:text="${tasks.iterator().next().input}"></h4>
                 <p>выходные данные:</p>
-                <h4 th:text="${task.output}"></h4>
+                <h4 th:text="${tasks.iterator().next().output}"></h4>
             </div>
-            <button id="send" class="btn btn-default checkbutton" type="submit">Send</button>
-            <!--<p id="timer"></p>-->
             <button id="resultCode" type="button" class="btn btn-default checkbutton">Compile</button>
             <div>
                 <ul class="list-group" id="resultgroup" style="visibility: hidden">
                     <li class="list-group-item" id="test_1">
-                        INPUT: 0; OUTPUT: 10;
+                        Test №1
                     </li>
                     <li class="list-group-item" id="test_2">
-                        INPUT: 1; OUTPUT: 10;
+                        Test №2
                     </li>
                     <li class="list-group-item" id="test_3">
-                        INPUT: 67; OUTPUT: 670;
+                        Test №3
                     </li>
                     <li class="list-group-item" id="test_4">
-                        INPUT: 15; OUTPUT: 150;
+                        Test №4
                     </li>
                     <li class="list-group-item" id="test_5">
-                        INPUT: 1000; OUTPUT: 10000;
+                        Test №5
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
-<!-- /.container -->
 
 <script th:src="@{/ace-builds/src/ace.js}" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -129,48 +127,7 @@
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     editor.getSession().setMode("ace/mode/java");
-
-    var session = editor.getSession()
-        , Range = require("ace/range").Range
-        , range = new Range(0, 0, 1, editor.session.getLine(2).length);
-
-    session.addMarker(range, "readonly-highlight");
-
-    editor.keyBinding.addKeyboardHandler({
-        handleKeyboard: function () {
-            if (editor.getSelectionRange().intersects(range)) {
-                return {command: "null", passEvent: false};
-            }
-        }
-    });
 </script>
-
-<!--<script>-->
-<!--var minute = 1000 * 60;-->
-<!--var time_minutes = 1;-->
-
-<!--var countDownDate = new Date(Date.now() + minute * time_minutes).getTime();-->
-<!--countDownDate.set-->
-
-<!--var x = setInterval(function () {-->
-<!--var now = new Date().getTime();-->
-
-<!--var distance = countDownDate - now;-->
-
-<!--var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));-->
-<!--var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));-->
-<!--var seconds = Math.floor((distance % (1000 * 60)) / 1000);-->
-
-<!--document.getElementById("timer").innerHTML = hours + "h: "-->
-<!--+ minutes + "m: " + seconds + "s ";-->
-
-<!--// If the count down is over-->
-<!--if (distance < 0) {-->
-<!--clearInterval(x);-->
-<!--//            editor.setReadOnly(true);-->
-<!--}-->
-<!--}, 1000);-->
-<!--</script>-->
 
 </body>
 </html>

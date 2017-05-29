@@ -1,59 +1,47 @@
 package com.itmo.model;
 
+import com.itmo.model.components.CompetitionUser;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
+
+    private long id;
+    private String email;
+    private String password;
+    private String company;
+    private String name;
+    private String lastName;
+    private long wins;
+    private boolean active;
+
+    private Set<Role> roles;
+    //    private Set<Task> tasks = new HashSet<>();
+    private Set<CompetitionUser> competitionUsers = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
-    private int user_id;
+    @Column(name = "user_id", unique = true, nullable = false)
+    public long getId() {
+        return id;
+    }
 
-    @Column(name = "email")
-    @Email(message = "*Please provide a valid Email")
-    @NotEmpty(message = "*Please provide an email")
-    private String email;
+    public void setId(long id) {
+        this.id = id;
+    }
 
     @Column(name = "password")
     @Length(min = 5, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
     @Transient
-    private String password;
-
-    @Column(name = "company")
-    private String company;
-
-    @Column(name = "name")
-    @NotEmpty(message = "*Please provide your name")
-    private String name;
-
-    @Column(name = "last_name")
-    @NotEmpty(message = "*Please provide your last name")
-    private String lastName;
-
-    @Column(name = "active")
-    private int active;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -62,6 +50,8 @@ public class User {
         this.password = password;
     }
 
+    @Column(name = "name")
+    @NotEmpty(message = "*Please provide your name")
     public String getName() {
         return name;
     }
@@ -70,6 +60,8 @@ public class User {
         this.name = name;
     }
 
+    @Column(name = "last_name")
+    @NotEmpty(message = "*Please provide your last name")
     public String getLastName() {
         return lastName;
     }
@@ -78,6 +70,9 @@ public class User {
         this.lastName = lastName;
     }
 
+    @Column(name = "email")
+    @Email(message = "*Please provide a valid Email")
+    @NotEmpty(message = "*Please provide an email")
     public String getEmail() {
         return email;
     }
@@ -86,14 +81,16 @@ public class User {
         this.email = email;
     }
 
-    public int getActive() {
+    @Column(name = "active")
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
+    @Column(name = "company")
     public String getCompany() {
         return company;
     }
@@ -102,6 +99,39 @@ public class User {
         this.company = company;
     }
 
+    @Column(name = "wins")
+    public long getWins() {
+        return wins;
+    }
+
+    public void setWins(long wins) {
+        this.wins = wins;
+    }
+
+//    @OneToMany(cascade=CascadeType.REMOVE, mappedBy = "user")
+//    public Set<Task> getTasks() {
+//        return tasks;
+//    }
+//
+//    public void setTasks(Set<Task> tasks) {
+//        this.tasks = tasks;
+//    }
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
+    public Set<CompetitionUser> getCompetitionUsers() {
+        return competitionUsers;
+    }
+
+    public void setCompetitionUsers(Set<CompetitionUser> competitionUsers) {
+        this.competitionUsers = competitionUsers;
+    }
+
+    public void addCompetitionUser(CompetitionUser competitionUser) {
+        this.competitionUsers.add(competitionUser);
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     public Set<Role> getRoles() {
         return roles;
     }
@@ -109,5 +139,4 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
 }

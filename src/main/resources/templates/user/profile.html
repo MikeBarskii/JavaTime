@@ -25,6 +25,9 @@
                 <li>
                     <a th:href="@{/multi/elem/1}">Multiprogramming</a>
                 </li>
+                <li>
+                    <a th:href="@{/competitions}">Competition</a>
+                </li>
             </ul>
             <ul th:if="${user.getRoles().iterator().next().getRole().equals('ADMIN')}" class="nav navbar-nav">
                 <li>

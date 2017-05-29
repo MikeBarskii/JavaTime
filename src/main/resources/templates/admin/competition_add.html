@@ -41,7 +41,7 @@
 
 <div class="container">
     <div class="row">
-        <form class="form-horizontal" th:action="@{/competition_add}" th:object="${competition}"
+        <form class="form-horizontal" th:action="@{/competition_add}"
               method="POST" role="form">
             <fieldset>
 
@@ -51,7 +51,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="competition_name">Competition Name</label>
                     <div class="col-md-5">
-                        <input id="competition_name" th:field="*{name}" placeholder="Competition Name"
+                        <input id="competition_name" th:field="${competition.name}" placeholder="Competition Name"
                                class="form-control input-md"
                                type="text" tabindex="1" required>
                     </div>
@@ -60,20 +60,20 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="deadline">Expected Deadline</label>
                     <div class="col-md-4">
-                        <input id="deadline" th:field="*{due_date}" placeholder="Due Date"
+                        <input id="deadline" th:field="${competition.due_date}" placeholder="Due Date"
                                class="form-control input-md"
-                               type="date" tabindex="2">
+                               type="datetime-local" tabindex="2">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="competition_users">Users</label>
                     <div class="col-md-4">
-                        <select id="competition_users" th:field="*{users}" multiple class="form-control"
+                        <select id="competition_users" th:field="${competition.users}" multiple class="form-control"
                                 size="5" required tabindex="3">
                             <option th:each="user : ${allUsers}"
                                     th:text="${user.name}"
-                                    th:value="${user.user_id}">
+                                    th:value="${user.email}">
                             </option>
                         </select>
                     </div>
@@ -83,21 +83,22 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="elementary_tasks">Elementary Tasks</label>
                     <div class="col-md-4">
-                        <select id="elementary_tasks" th:field="*{tasks}" multiple class="form-control"
+                        <select id="elementary_tasks" th:field="${competition.tasks}" multiple class="form-control"
                                 size="5" tabindex="4">
                             <option th:each="task : ${elementary_tasks}"
                                     th:text="${task.name}"
-                                    th:value="${task.task_id}">
+                                    th:value="${task.id}">
                             </option>
                         </select>
                     </div>
                     <label class="col-md-2 control-label" for="average_tasks">Average Tasks</label>
                     <div class="col-md-4">
-                        <select id="average_tasks" th:field="*{tasks}" multiple class="form-control" size="5"
+                        <select id="average_tasks" th:field="${competition.tasks}" multiple class="form-control"
+                                size="5"
                                 tabindex="5">
                             <option th:each="task : ${average_tasks}"
                                     th:text="${task.name}"
-                                    th:value="${task.task_id}">
+                                    th:value="${task.id}">
                             </option>
                         </select>
                     </div>
@@ -106,11 +107,11 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="heavy_tasks">Heavy Tasks</label>
                     <div class="col-md-4">
-                        <select id="heavy_tasks" th:field="*{tasks}" multiple class="form-control" size="5"
+                        <select id="heavy_tasks" th:field="${competition.tasks}" multiple class="form-control" size="5"
                                 tabindex="6">
                             <option th:each="task : ${heavy_tasks}"
                                     th:text="${task.name}"
-                                    th:value="${task.task_id}">
+                                    th:value="${task.id}">
                             </option>
                         </select>
                     </div>

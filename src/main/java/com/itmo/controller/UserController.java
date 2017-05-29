@@ -4,8 +4,10 @@ import com.itmo.model.Competition;
 import com.itmo.model.Role;
 import com.itmo.model.Task;
 import com.itmo.model.User;
+import com.itmo.model.components.CompetitionUser;
 import com.itmo.service.CodeService;
 import com.itmo.service.CompetitionService;
+import com.itmo.service.CompetitionUserService;
 import com.itmo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Controller
 public class UserController extends ProjectController {
@@ -28,6 +32,9 @@ public class UserController extends ProjectController {
 
     @Autowired
     private CompetitionService competitionService;
+
+    @Autowired
+    private CompetitionUserService competitionUserService;
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public ModelAndView mainPage() {
@@ -82,13 +89,29 @@ public class UserController extends ProjectController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/competition", method = RequestMethod.GET)
+    @RequestMapping(value = "/competitions", method = RequestMethod.GET)
     public ModelAndView userCompetitions() {
         ModelAndView modelAndView = new ModelAndView();
         User user = findUser();
-        List<Competition> competitions = competitionService.findAllByUser(user);
+        List<CompetitionUser> competitionUsers = competitionUserService.findCompetitionUsersByUser(user);
+        Map<Competition, CompetitionUser> competitionUserMap = new HashMap<>();
+        for (CompetitionUser competitionUser : competitionUsers) {
+            competitionUserMap.put(competitionUser.getCompetition(), competitionUser);
+        }
         modelAndView.addObject("user", user);
-        modelAndView.setViewName("user/profile");
+        modelAndView.addObject("competitions", competitionUserMap);
+        modelAndView.setViewName("user/competitions");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/competition/{id}", method = RequestMethod.GET)
+    public ModelAndView addCompetition(@PathVariable("id") int competition_id) {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = findUser();
+        Competition competition = competitionService.findCompetitionById(competition_id);
+        Set<Task> tasks = competition.getTasks();
+        modelAndView.addObject("tasks", tasks);
+        modelAndView.setViewName("user/competition");
         return modelAndView;
     }
 

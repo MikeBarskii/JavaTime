@@ -1,7 +1,6 @@
 package com.itmo.service;
 
 import com.itmo.model.Competition;
-import com.itmo.model.User;
 import com.itmo.repository.CompetitionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +26,18 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public List<Competition> findAllByUser(User user) {
-        return competitionRepository.findAllByUsers(user);
+    public Competition findCompetitionById(long id) {
+        return competitionRepository.findCompetitionById(id);
     }
+
+    @Override
+    public void removeCompetition(long id) {
+        competitionRepository.removeCompetitionById(id);
+    }
+
+//    @Override
+//    public List<Competition> findAllByUser(User user) {
+//        return competitionRepository.findAllByUsers(user);
+//    }
 
 }

@@ -32,6 +32,9 @@
                             <li>
                                 <a th:href="@{/multi/elem/1}">Multiprogramming</a>
                             </li>
+                            <li>
+                                <a th:href="@{/competitions}">Competition</a>
+                            </li>
                         </ul>
                         <a th:href="@{/logout}" class="logout">Logout</a>
                     </div>
@@ -45,14 +48,21 @@
                 <tr class="title_tr">
                     <th>№</th>
                     <th>Name</th>
-                    <th>Due Date</th>
-                    <th>Winner</th>
+                    <th>Due date</th>
+                    <th>Participated</th>
+                    <th>Passed Test</th>
+                    <!--<th>My Time</th>-->
+                    <th>Start Competition</th>
                 </tr>
                 <tr th:each="competition,iter : ${competitions}">
                     <td th:text="${iter.index}+1"></td>
-                    <td th:text="${competition.name}"></td>
-                    <td th:text="${competition.due_date}">></td>
-                    <td th:text="${competition.winner}"></td>
+                    <td th:text="${competition.key.name}"></td>
+                    <td th:text="${competition.key.due_date}">></td>
+                    <td th:text="${competition.value.complete}"></td>
+                    <td>1</td>
+                    <!--<td th:text="${competition.value.time}"></td>-->
+                    <td style="width: 50%"><a th:href="@{/competition/} + ${competition.key.id}"
+                                              class="btn btn-default">Start</a></td>
                 </tr>
             </table>
         </div>

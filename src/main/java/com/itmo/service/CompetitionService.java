@@ -1,7 +1,6 @@
 package com.itmo.service;
 
 import com.itmo.model.Competition;
-import com.itmo.model.User;
 
 import java.util.List;
 
@@ -10,5 +9,7 @@ public interface CompetitionService {
 
     List<Competition> findAllCompetitions();
 
-    List<Competition> findAllByUser(User user);
+    Competition findCompetitionById(long id);
+
+    void removeCompetition(long id);
 }

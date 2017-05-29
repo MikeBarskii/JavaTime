@@ -42,14 +42,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setActive(1);
+        user.setActive(true);
         Role userRole = roleRepository.findByRole("USER");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userRepository.save(user);
     }
 
     @Override
-    public List<User> findUsersByActive(int active) {
+    public List<User> findUsersByActive(boolean active) {
         return userRepository.findUsersByActive(active);
     }
 

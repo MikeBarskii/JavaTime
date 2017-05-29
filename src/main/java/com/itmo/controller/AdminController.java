@@ -4,17 +4,20 @@ import com.itmo.model.Competition;
 import com.itmo.model.Level;
 import com.itmo.model.Task;
 import com.itmo.model.User;
-import com.itmo.service.CompetitionService;
-import com.itmo.service.LevelService;
-import com.itmo.service.TaskService;
-import com.itmo.service.UserService;
+import com.itmo.model.components.CompetitionUser;
+import com.itmo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -33,10 +36,13 @@ public class AdminController extends ProjectController {
     @Autowired
     private CompetitionService competitionService;
 
+    @Autowired
+    private CompetitionUserService competitionUserService;
+
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView adminPage() {
         ModelAndView modelAndView = new ModelAndView();
-        List<User> users = userService.findUsersByActive(1);
+        List<User> users = userService.findUsersByActive(true);
 
         modelAndView.addObject("users", users);
         modelAndView.setViewName("admin/users_list");
@@ -69,11 +75,20 @@ public class AdminController extends ProjectController {
     }
 
     @RequestMapping(value = "/competition_add", method = RequestMethod.POST)
-    public ModelAndView addCompetition(Competition competition, BindingResult bindingResult) {
-        int participants = competition.getUsers().size();
+    public ModelAndView addCompetition(@ModelAttribute(value = "competition") @Valid Competition competition,
+                                       BindingResult bindingResult) {
+        long participants = competition.getUsers().length;
         competition.setParticipants(participants);
-
+        Calendar calendar = new GregorianCalendar(2017, 7, 17);
+        competition.setDue_date(calendar.getTime());
         competitionService.saveCompetition(competition);
+
+        for (String userEmail : competition.getUsers()) {
+            User user = userService.findUserByEmail(userEmail);
+            CompetitionUser competitionUser = new CompetitionUser(user, competition);
+            competitionUserService.saveUserCompetition(competitionUser);
+        }
+
         return new ModelAndView("redirect:admin_competitions");
     }
 
@@ -81,7 +96,6 @@ public class AdminController extends ProjectController {
     public ModelAndView tasksPage() {
         ModelAndView modelAndView = new ModelAndView();
         List<Task> tasks = taskService.findAllTasks();
-
         modelAndView.addObject("tasks", tasks);
         modelAndView.setViewName("admin/tasks");
         return modelAndView;
@@ -91,7 +105,6 @@ public class AdminController extends ProjectController {
     public ModelAndView addTaskPage() {
         ModelAndView modelAndView = new ModelAndView();
         List<Level> levels = levelService.findAllLevels();
-
         modelAndView.addObject("levels", levels);
         modelAndView.addObject("task", new Task());
         modelAndView.addObject("level", new Level());
@@ -103,6 +116,22 @@ public class AdminController extends ProjectController {
     public ModelAndView addTask(Task task, String level) {
         taskService.saveTask(task, level);
         return new ModelAndView("redirect:tasks");
+    }
+
+    @RequestMapping(value = "/competition_remove/{id}", method = RequestMethod.GET)
+    public ModelAndView addCompetition(@PathVariable("id") int competition_id) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        Competition competition = competitionService.findCompetitionById(competition_id);
+        List<CompetitionUser> competitionUsers = competitionUserService.findCompetitionUsersByCompetition(competition);
+
+        for (CompetitionUser competitionUser : competitionUsers) {
+            competitionUserService.removeCompetitionUserById(competitionUser.getId());
+        }
+        competitionService.removeCompetition(competition.getId());
+
+        modelAndView.setViewName("admin/competitions");
+        return modelAndView;
     }
 
     private List<Task> findTasksByLevel(String levelName) {

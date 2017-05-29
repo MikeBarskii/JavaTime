@@ -1,46 +1,42 @@
 package com.itmo.model;
 
+import com.itmo.model.components.CompetitionUser;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "competition")
+@Table(name = "competitions")
 public class Competition {
+
+    private long id;
+    private String name;
+    private long participants;
+    private Date due_date;
+    private String winner;
+    private String[] users;
+
+    private Set<CompetitionUser> competitionUsers = new HashSet<>();
+    private Set<Task> tasks = new HashSet<>();
+
+    public Competition() {
+
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "competition_id")
-    private int competition_id;
+    @Column(name = "competition_id", unique = true, nullable = false)
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     @Column(name = "name")
-    private String name;
-
-    @Column(name = "participants")
-    private int participants;
-
-    @Column(name = "due_date")
-    private Date due_date;
-
-    @Column(name = "winner")
-    private String winner;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "competition_user", joinColumns = @JoinColumn(name = "competition_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> users;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "competition_task", joinColumns = @JoinColumn(name = "competition_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
-    private Set<User> tasks;
-
-    public int getCompetition_id() {
-        return competition_id;
-    }
-
-    public void setCompetition_id(int competition_id) {
-        this.competition_id = competition_id;
-    }
-
     public String getName() {
         return name;
     }
@@ -49,14 +45,16 @@ public class Competition {
         this.name = name;
     }
 
-    public int getParticipants() {
+    @Column(name = "participants")
+    public long getParticipants() {
         return participants;
     }
 
-    public void setParticipants(int participants) {
+    public void setParticipants(long participants) {
         this.participants = participants;
     }
 
+    @Column(name = "due_date")
     public Date getDue_date() {
         return due_date;
     }
@@ -65,6 +63,7 @@ public class Competition {
         this.due_date = due_date;
     }
 
+    @Column(name = "winner")
     public String getWinner() {
         return winner;
     }
@@ -73,24 +72,34 @@ public class Competition {
         this.winner = winner;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "competition")
+    public Set<CompetitionUser> getCompetitionUsers() {
+        return competitionUsers;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setCompetitionUsers(Set<CompetitionUser> competitionUsers) {
+        this.competitionUsers = competitionUsers;
     }
 
-    public Set<User> getTasks() {
+    public void addCompetitionUser(CompetitionUser competitionUser) {
+        this.competitionUsers.add(competitionUser);
+    }
+
+    @ManyToMany()
+    @JoinTable(name = "competition_task", joinColumns = @JoinColumn(name = "competition_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
+    public Set<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(Set<User> tasks) {
+    public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
     }
 
-    public Competition() {
-
+    public String[] getUsers() {
+        return users;
     }
 
+    public void setUsers(String[] users) {
+        this.users = users;
+    }
 }
