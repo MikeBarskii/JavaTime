@@ -61,7 +61,8 @@
             <p class="lead" th:text="${tasks.iterator().next().name}"></p>
             <div class="list-group">
                 <a class="list-group-item"
-                   th:each="task : ${tasks}"
+                   th:each="task, iter : ${tasks}"
+                   th:id="'task' + ${iter.index}"
                    th:text="${task.name}"
                    th:href="@{/competition/} + ${task.id}"></a>
             </div>
@@ -69,7 +70,7 @@
 
         <div class="col-md-9" style="width: 55%">
             <div id="editor">public class UserClass {
-                public int result(int input) {
+                public boolean result(int input) {
 
                 }
                 }
@@ -91,10 +92,10 @@
 
                 <!--<p>Выходные данные</p>-->
                 <!--<p>Выведите ответ на задачу.</p>-->
-                <p>Пример:</p>
-                <p>входные данные:</p>
+                <p>Example:</p>
+                <p>Input parameters:</p>
                 <h4 th:text="${tasks.iterator().next().input}"></h4>
-                <p>выходные данные:</p>
+                <p>Output parameters:</p>
                 <h4 th:text="${tasks.iterator().next().output}"></h4>
             </div>
             <button id="resultCode" type="button" class="btn btn-default checkbutton">Compile</button>

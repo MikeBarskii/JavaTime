@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -61,11 +62,29 @@ public class AdminController extends ProjectController {
     @RequestMapping(value = "/competition_add", method = RequestMethod.GET)
     public ModelAndView addCompetitionPage() {
         ModelAndView modelAndView = new ModelAndView();
-        List<User> allUsers = userService.findAllUsers();
+        List<User> activationUsers = new ArrayList<>();
+        List<User> fufUsers = new ArrayList<>();
+        List<User> dbUsers = new ArrayList<>();
+
+        activationUsers.add(userService.findUserByEmail("tarassimon@mail.ru"));
+
+        fufUsers.add(userService.findUserByEmail("marat.daishev@yandex.ru"));
+        fufUsers.add(userService.findUserByEmail("evgeniy.gavrilov@mail.ru"));
+
+        fufUsers.add(userService.findUserByEmail("dmitriy.moldovanov@mail.ru"));
+        fufUsers.add(userService.findUserByEmail("olegpetrov@mail.ru"));
+
+        dbUsers.add(userService.findUserByEmail("ivanov1239@mail.ru"));
+
+
         List<Task> elementaryTasks = findTasksByLevel("elementary");
         List<Task> averageTasks = findTasksByLevel("average");
         List<Task> heavyTasks = findTasksByLevel("heavy");
-        modelAndView.addObject("allUsers", allUsers);
+
+        modelAndView.addObject("fufUsers", fufUsers);
+        modelAndView.addObject("activationUsers", activationUsers);
+        modelAndView.addObject("dbUsers", dbUsers);
+
         modelAndView.addObject("elementary_tasks", elementaryTasks);
         modelAndView.addObject("average_tasks", averageTasks);
         modelAndView.addObject("heavy_tasks", heavyTasks);

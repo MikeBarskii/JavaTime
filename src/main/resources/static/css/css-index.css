@@ -1,9 +1,3 @@
-/**
-* Backyard
-* Landing Page Template
-* Author: MoxDesign - http://www.moxdesign.com
-**/
-
 html, body {
     width: 100%;
     overflow: hidden;
@@ -11,7 +5,7 @@ html, body {
 
 body {
     height: 100vh;
-    font-family: "Lato", "Serif", sans-serif;
+    font-family: "Lora", serif;
     font-weight: 300;
     padding: 0;
     margin: 0;
@@ -246,7 +240,7 @@ a:hover {
 }
 
 .signup-header {
-    margin: 150px 0 100px;
+    margin: 120px 0 100px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 4px;
     padding-left: 20px;

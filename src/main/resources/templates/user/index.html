@@ -16,6 +16,32 @@
 
     <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
 
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
+    <script th:inline="javascript">
+        var competition = [[${competition}]];
+        var url = document.referrer;
+        if ((url === 'http://localhost:8070/') && competition)
+            $(window).on('load', function () {
+                if (competition) {
+                    $('#myModal').modal('show');
+                }
+            });
+    </script>
+
+    <script th:inline="javascript">
+        var starts = [[${starts}]];
+        var url = document.referrer;
+        if ((url === 'http://localhost:8070/') && starts)
+            $(window).on('load', function () {
+                if (starts) {
+                    $('#departmentModel').modal('show');
+                }
+            });
+    </script>
 </head>
 
 <body>
@@ -31,14 +57,14 @@
                 <li>
                     <a th:href="@{/single/elem/1}">Single programming</a>
                 </li>
+                <!--<li>-->
+                <!--<a th:href="@{/multi/elem/1}">Multiprogramming</a>-->
+                <!--</li>-->
                 <li>
-                    <a th:href="@{/multi/elem/1}">Multiprogramming</a>
-                </li>
-                <li>
-                    <a th:href="@{/competitions}">Competition</a>
+                    <a th:href="@{/competitions}">Competitions</a>
                 </li>
             </ul>
-            <a th:href="@{/logout}" class="logout">Logout</a>
+            <a th:href="@{/logout}" class="logout">Log out</a>
         </div>
     </div>
 </nav>
@@ -47,7 +73,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header" style="margin: 10px 0 15px 0">Personal Page of
+            <h1 class="page-header" style="margin: 10px 0 5px 0">Personal Page
                 <a th:href="@{/profile}" style="color:#a33b3b">
                     <span th:utext="${userName}"></span>
                 </a>
@@ -56,31 +82,77 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6 portfolio-item" style="width:33%">
+        <div class="col-md-6 portfolio-item" style="width:47%">
             <a th:href="@{/single/elem/1}">
-                <img class="img-responsive" th:src="@{/images/single.png}" alt="Single programming">
+                <img class="img-responsive" th:src="@{/images/single.png}"
+                     alt="Single programming"
+                     style="margin-left: auto; margin-right: auto; height: 380px">
 
-                <h3>Single programming</h3>
+                <h3>Single Programming</h3>
             </a>
             <p>In this section you can train to solve different tasks alone</p>
         </div>
 
-        <div class="col-md-6 portfolio-item" style="width:33%">
-            <a th:href="@{/multi/elem/1}">
-                <img class="img-responsive" th:src="@{/images/team.png}" alt="Multiprogramming">
+        <!--<div class="col-md-6 portfolio-item" style="width:33%">-->
+        <!--<a th:href="@{/multi/elem/1}">-->
+        <!--<img class="img-responsive" th:src="@{/images/team.png}" alt="Multiprogramming">-->
 
-                <h3>Multiprogramming</h3>
-            </a>
-            <p>In this section you can solve problems with your friend at the same time</p>
-        </div>
+        <!--<h3>Multiprogramming</h3>-->
+        <!--</a>-->
+        <!--<p>In this section you can solve problems with your friend at the same time</p>-->
+        <!--</div>-->
 
-        <div class="col-md-6 portfolio-item" style="width:33%">
+        <div class="col-md-6 portfolio-item" style="width:47%">
             <a th:href="@{/competitions}">
-                <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-
-                <h3>Competition</h3>
+                <img class="img-responsive" th:src="@{/images/competition.png}"
+                     alt="Competition"
+                     style="margin-left: auto; margin-right: auto; height: 380px">
+                <h3>Competitions</h3>
             </a>
             <p>In this section you can compete with your friend who will solve the problem faster</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="departmentModel" role="dialog" style="text-align: center">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content" style="display: inline-block; margin: 100px auto;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Choose your department</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="btn-group">
+                        <ul class="list-group" style="width: 200px">
+                            <a th:href="@{/main}" class="list-group-item">DataBase</a>
+                            <a th:href="@{/main}" class="list-group-item">FUF</a>
+                            <a th:href="@{/main}" class="list-group-item">Activation</a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog" style="text-align: center">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content" style="display: inline-block; margin: 100px auto;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">New competition</h4>
+                </div>
+                <div class="modal-body">
+                    <p>You have not solved competitions</p>
+                    <p><a th:href="@{/competitions}">To competitions</a></p>
+                </div>
+            </div>
+
         </div>
     </div>
 

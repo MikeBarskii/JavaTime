@@ -25,8 +25,8 @@ public class Level {
         return level;
     }
 
-    public void setLevel(String role) {
-        this.level = role;
+    public void setLevel(String level) {
+        this.level = level;
     }
 
 }

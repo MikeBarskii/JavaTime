@@ -15,8 +15,7 @@
     <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link rel="stylesheet"
-          href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic"/>
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
 </head>
 
 <body data-spy="scroll" data-target="#navbar-scroll">
@@ -53,7 +52,7 @@
                                     <a href="#" class="active" id="login-form-link">Login</a>
                                 </div>
                                 <div class="col-xs-6">
-                                    <a href="#" id="register-form-link">Register</a>
+                                    <a href="#" id="register-form-link">Registration</a>
                                 </div>
                             </div>
                             <hr style="margin-top:0">
@@ -64,8 +63,10 @@
 
                                     <form id="login-form" th:action="@{/login}" method="POST" class="form-signin">
                                         <div class="form-group">
-                                            <input type="email" id="email" name="email" th:placeholder="Email"
-                                                   class="form-control input-lg" tabindex="1" title="Email" required/>
+                                            <input type="email" id="email" name="email" th:placeholder="E-mail"
+                                                   class="form-control input-lg"
+                                                   tabindex="1" title="Email"
+                                                   autocomplete="off" required/>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" th:placeholder="Password" value=""
@@ -73,35 +74,32 @@
                                                    tabindex="2" title="Password" required/>
                                         </div>
                                         <div align="center" th:if="${param.error}">
-                                            <p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please
-                                                verify</p>
+                                            <p style="font-size: 20; color: #FF1C19;">Incorrect email or password</p>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-6 col-sm-offset-3">
                                                 <button class="btn btn-primary btn-block btn-lg" name="Submit"
-                                                        value="Login" type="Submit" th:text="Login"
-                                                        tabindex="3" style="margin: 15px 0 0 0"></button>
+                                                        value="Sing In" type="Submit"
+                                                        tabindex="3" style="margin: 15px 0 0 0">Sing In
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
 
                                     <form id="register-form" th:action="@{/registration}" th:object="${user}"
                                           role="form" method="post" class="form-signin" style="display: none">
-                                        <div class="form-group">
+                                        <div class="form-group user_registration">
                                             <input type="text" th:field="*{name}"
-                                                   placeholder="Name" class="form-control input-lg" tabindex="1"/>
-                                            <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-                                                   class="validation-message"></label>
-                                        </div>
-                                        <div class="form-group">
+                                                   placeholder="Name" class="form-control input-lg"
+                                                   autocomplete="off" tabindex="1"/>
                                             <input type="text" th:field="*{lastName}"
-                                                   placeholder="Last Name" class="form-control input-lg" tabindex="2"/>
-                                            <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
-                                                   class="validation-message"></label>
+                                                   placeholder="Surname" class="form-control input-lg"
+                                                   autocomplete="off" tabindex="2"/>
                                         </div>
                                         <div class="form-group">
                                             <input type="email" th:field="*{email}"
-                                                   placeholder="Email" class="form-control input-lg" tabindex="3"/>
+                                                   placeholder="E-mail" class="form-control input-lg"
+                                                   autocomplete="off" tabindex="3"/>
                                             <label
                                                     th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
                                                     class="validation-message"></label>
@@ -114,10 +112,19 @@
                                                     class="validation-message"></label>
                                         </div>
                                         <div class="form-group">
-                                            <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="password" th:field="*{confirmPassword}"
+                                                   placeholder="Confirm Password" class="form-control input-lg"
+                                                   tabindex="5"/>
+                                            <label
+                                                    th:if="${#fields.hasErrors('confirmPassword')}"
+                                                    th:errors="*{confirmPassword}"
+                                                    class="validation-message"></label>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-6 col-sm-offset-3 register_tab">
                                                 <button type="submit" name="register-submit" id="register-submit"
-                                                        tabindex="5" class="form-control btn-primary btn-block"
-                                                        style="margin: 0">Register
+                                                        tabindex="6" class="form-control btn-primary btn-block"
+                                                        style="margin: 0">Sign Up
                                                 </button>
                                             </div>
                                         </div>

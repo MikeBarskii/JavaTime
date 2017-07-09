@@ -23,6 +23,15 @@ function sendCode() {
     stompClient.send("/app/send", {}, JSON.stringify({'code': code}));
 }
 
+function sendSingleResult() {
+    $('#resultgroup').css('visibility', 'visible');
+    var code = editor.getValue();
+    var url = location.href;
+    var level = url.split('/');
+    console.log(url);
+    stompClient.send("/app/resultSingle", {}, JSON.stringify({'code': code}));
+}
+
 function sendResult() {
     $('#resultgroup').css('visibility', 'visible');
     var code = editor.getValue();
@@ -38,10 +47,17 @@ function setErrorInDiv(user_error) {
 }
 
 function setTestsResults(result) {
+    var five = 0;
     for (var i = 0; i < result.length; i++) {
         var testID = 'test_' + (i + 1);
-        if (result[i]) $('#' + testID).css('background-color', '#6bde6b');
+        if (result[i]) {
+            $('#' + testID).css('background-color', '#6bde6b');
+            five = five + 1;
+        }
         else $('#' + testID).css('background-color', '#e44a49');
+    }
+    if (five === 5) {
+        $('#task0').css('background-color', '#8ab98a');
     }
 }
 
@@ -54,6 +70,9 @@ $(function () {
     // }, 30000);
     $("#send").click(function () {
         sendCode();
+    });
+    $("#resultCodeSingle").click(function () {
+        sendSingleResult();
     });
     $("#resultCode").click(function () {
         sendResult();

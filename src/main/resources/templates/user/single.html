@@ -47,7 +47,7 @@
                     <a th:href="@{/single/heavy/1}">Heavy Level</a>
                 </li>
             </ul>
-            <a th:href="@{/logout}" class="logout">Logout</a>
+            <a th:href="@{/logout}" class="logout">Log Out</a>
         </div>
     </div>
 </nav>
@@ -90,13 +90,13 @@
 
                 <!--<p>Выходные данные</p>-->
                 <!--<p>Выведите ответ на задачу.</p>-->
-                <p>Пример:</p>
-                <p>входные данные:</p>
+                <p>Example:</p>
+                <p>Input parameter:</p>
                 <h4 th:text="${task.input}"></h4>
-                <p>выходные данные:</p>
+                <p>Output parameter:</p>
                 <h4 th:text="${task.output}"></h4>
             </div>
-            <button id="resultCode" type="button" class="btn btn-default checkbutton">Compile</button>
+            <button id="resultCodeSingle" type="button" class="btn btn-default checkbutton">Compile</button>
             <div>
                 <ul class="list-group" id="resultgroup" style="visibility: hidden">
                     <li class="list-group-item" id="test_1">

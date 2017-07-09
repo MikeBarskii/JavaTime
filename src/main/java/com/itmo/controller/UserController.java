@@ -45,6 +45,10 @@ public class UserController extends ProjectController {
                 return new ModelAndView("redirect:admin");
             }
         }
+        boolean competition = true;
+        boolean starts = false;
+        modelAndView.addObject("competition", competition);
+        modelAndView.addObject("starts", starts);
         modelAndView.setViewName("user/index");
         modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
         return modelAndView;
@@ -85,7 +89,25 @@ public class UserController extends ProjectController {
         ModelAndView modelAndView = new ModelAndView();
         User user = findUser();
         modelAndView.addObject("user", user);
-        modelAndView.setViewName("user/profile");
+        if (user.getRoles().iterator().next().getRole().equals("USER")) {
+            modelAndView.setViewName("user/profile");
+        } else {
+            modelAndView.setViewName("admin/profile");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/profile", method = RequestMethod.POST)
+    public ModelAndView editUser(User user) {
+        ModelAndView modelAndView = new ModelAndView();
+        userService.modifyUser(user);
+        User userDB = findUser();
+        modelAndView.addObject("user", userDB);
+        if (userDB.getRoles().iterator().next().getRole().equals("USER")) {
+            modelAndView.setViewName("user/profile");
+        } else {
+            modelAndView.setViewName("admin/profile");
+        }
         return modelAndView;
     }
 
@@ -112,14 +134,6 @@ public class UserController extends ProjectController {
         Set<Task> tasks = competition.getTasks();
         modelAndView.addObject("tasks", tasks);
         modelAndView.setViewName("user/competition");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/profile", method = RequestMethod.POST)
-    public ModelAndView editUser(User user) {
-        ModelAndView modelAndView = new ModelAndView();
-        userService.modifyUser(user);
-        modelAndView.setViewName("user/profile");
         return modelAndView;
     }
 

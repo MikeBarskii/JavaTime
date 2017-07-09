@@ -184,6 +184,7 @@ body {
 }
 
 .validation-message {
+    width: 100%;
     text-align: center;
     font-style: normal;
     color: rgba(255, 28, 25, 0.83);
@@ -336,4 +337,29 @@ body {
 .break_description, .break_description p {
     width: 450px;
     word-wrap: break-word;
+}
+
+.user_registration input {
+    width: 49%;
+    display: inline-block;
+}
+
+.register_tab, .register_tab button {
+    padding: 0;
+}
+
+.competition_finish {
+    visibility: hidden;
+}
+
+.competition_start {
+    visibility: visible;
+}
+
+.user_tr > td {
+    padding: 4px !important;
+}
+
+.title_tr > th {
+    text-align: center;
 }

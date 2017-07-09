@@ -11,6 +11,21 @@
     <link rel="stylesheet" th:href="@{/css/main.css}">
 
     <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+
+    <script type="text/javascript">
+        var i = 0;
+        while (i < 3) {
+            var id = "c_" + i;
+            console.log(id);
+            var x = document.getElementById("c_" + i);
+            console.log(x);
+            i++;
+            //x.innerHTML = Math.floor((Math.random() * 5) + 1);
+        }
+    </script>
 </head>
 <body>
 <div class="panel panel-default">
@@ -29,14 +44,14 @@
                             <li>
                                 <a th:href="@{/single/elem/1}">Single programming</a>
                             </li>
+                            <!--<li>-->
+                            <!--<a th:href="@{/multi/elem/1}">Multiprogramming</a>-->
+                            <!--</li>-->
                             <li>
-                                <a th:href="@{/multi/elem/1}">Multiprogramming</a>
-                            </li>
-                            <li>
-                                <a th:href="@{/competitions}">Competition</a>
+                                <a th:href="@{/competitions}">Competitions</a>
                             </li>
                         </ul>
-                        <a th:href="@{/logout}" class="logout">Logout</a>
+                        <a th:href="@{/logout}" class="logout">Log Out</a>
                     </div>
                 </div>
             </nav>
@@ -59,10 +74,12 @@
                     <td th:text="${competition.key.name}"></td>
                     <td th:text="${competition.key.due_date}">></td>
                     <td th:text="${competition.value.complete}"></td>
-                    <td>1</td>
+                    <td>0</td>
                     <!--<td th:text="${competition.value.time}"></td>-->
-                    <td style="width: 50%"><a th:href="@{/competition/} + ${competition.key.id}"
-                                              class="btn btn-default">Start</a></td>
+                    <td style="width: 50%"
+                        th:style="${competition.value.complete} ? 'visibility:hidden' : 'visibility:visible'"><a
+                            th:href="@{/competition/} + ${competition.key.id}"
+                            class="btn btn-default">Start</a></td>
                 </tr>
             </table>
         </div>

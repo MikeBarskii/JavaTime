@@ -10,6 +10,8 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" media="screen">
     <link rel="stylesheet" th:href="@{/css/main.css}">
 
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
     <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
 </head>
 <body>
@@ -33,7 +35,7 @@
                                 <a th:href="@{/tasks}">Tasks</a>
                             </li>
                         </ul>
-                        <a th:href="@{/logout}" class="logout">Logout</a>
+                        <a th:href="@{/logout}" class="logout">Log Out</a>
                     </div>
                 </div>
             </nav>
@@ -41,21 +43,31 @@
             <div class="panel-heading rating">Users Rating</div>
 
             <!-- Table -->
-            <table class="table user_table">
+            <table class="table" style="text-align: center">
                 <tr class="title_tr">
                     <th>№</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Wins</th>
                     <th>Email</th>
+                    <th>Change</th>
                 </tr>
-                <tr th:each="user,iter : ${users}">
+                <tr th:each="user,iter : ${users}" class="user_tr">
                     <td th:text="${iter.index}+1">1</td>
                     <td th:text="${user.name}"></td>
                     <td th:text="${user.lastName}"></td>
                     <td th:text="${user.wins}"></td>
                     <td th:text="${user.email}" th:value="${user.email}">mike@mail.ru</td>
-                    <!--<td><a class="btn btn-default">Profile</a></td>-->
+                    <td>
+                        <a th:href="@{'/change_user/' + ${user.id}}">
+                            <button class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Edit
+                            </button>
+                        </a>
+                        <a th:href="@{'/remove_user/' + ${user.id}}">
+                            <button class="btn btn-primary"><span class="glyphicon glyphicon-remove"></span> Delete
+                            </button>
+                        </a>
+                    </td>
                 </tr>
             </table>
         </div>

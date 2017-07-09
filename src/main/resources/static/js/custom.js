@@ -38,11 +38,6 @@ $('.navbar-collapse ul li a').click(function () {
     $('.navbar-toggle:visible').click();
 });
 
-/* sticky navigation */
-$(document).ready(function () {
-    $("#menu").sticky({topSpacing: 0});
-});
-
 jQuery(document).ready(function ($) {
 
 // site preloader -- also uncomment the div in the header and the css style for #preloader

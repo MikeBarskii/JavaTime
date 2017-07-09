@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Adding Competition</title>
+    <title>Добавление соревнования</title>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" media="screen">
     <link rel="stylesheet" th:href="@{/css/main.css}">
@@ -33,7 +33,7 @@
                         <a th:href="@{/tasks}">Tasks</a>
                     </li>
                 </ul>
-                <a th:href="@{/logout}" class="logout">Logout</a>
+                <a th:href="@{/logout}" class="logout">Log Out</a>
             </div>
         </div>
     </nav>
@@ -67,13 +67,31 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="competition_users">Users</label>
-                    <div class="col-md-4">
-                        <select id="competition_users" th:field="${competition.users}" multiple class="form-control"
-                                size="5" required tabindex="3">
-                            <option th:each="user : ${allUsers}"
-                                    th:text="${user.name}"
-                                    th:value="${user.email}">
+                    <label class="col-md-2 control-label" for="db">Users</label>
+                    <div class="col-md-3">
+                        <select id="db" th:field="${competition.users}" multiple class="form-control"
+                                size="5" tabindex="3">
+                            <option th:each="fufuser : ${fufUsers}"
+                                    th:text="${fufuser.name} + ' ' + ${fufuser.lastName}"
+                                    th:value="${fufuser.email}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="qwe" th:field="${competition.users}" multiple class="form-control"
+                                size="5" tabindex="3">
+                            <option th:each="actuser : ${activationUsers}"
+                                    th:text="${actuser.name} + ' ' + ${actuser.lastName}"
+                                    th:value="${actuser.email}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="fuf" th:field="${competition.users}" multiple class="form-control"
+                                size="5" tabindex="3">
+                            <option th:each="dbuser : ${dbUsers}"
+                                    th:text="${dbuser.name} + ' ' + ${dbuser.lastName}"
+                                    th:value="${dbuser.email}">
                             </option>
                         </select>
                     </div>

@@ -11,6 +11,10 @@
     <link rel="stylesheet" th:href="@{/css/main.css}">
 
     <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 </head>
 <body>
 <div class="panel panel-default">
@@ -54,7 +58,12 @@
                     <td th:text="${task.name}"></td>
                     <td class="break_description"><p th:text="${task.description}"></p></td>
                     <td th:text="${task.getLevels().iterator().next().getLevel().toLowerCase()}"></td>
-                    <!--<td><a class="btn btn-default">Profile</a></td>-->
+                    <td>
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Edit
+                        </button>
+                        <button class="btn btn-primary"><span class="glyphicon glyphicon-remove"></span> Delete
+                        </button>
+                    </td>
                 </tr>
             </table>
         </div>

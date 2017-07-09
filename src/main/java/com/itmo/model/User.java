@@ -2,7 +2,6 @@ package com.itmo.model;
 
 import com.itmo.model.components.CompetitionUser;
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
 
@@ -17,6 +16,7 @@ public class User {
     private long id;
     private String email;
     private String password;
+    private String confirmPassword;
     private String company;
     private String name;
     private String lastName;
@@ -24,6 +24,7 @@ public class User {
     private boolean active;
 
     private Set<Role> roles;
+    private Set<Department> departments;
     //    private Set<Task> tasks = new HashSet<>();
     private Set<CompetitionUser> competitionUsers = new HashSet<>();
 
@@ -39,7 +40,6 @@ public class User {
     }
 
     @Column(name = "password")
-    @Length(min = 5, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
     @Transient
     public String getPassword() {
@@ -48,6 +48,15 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Transient
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     @Column(name = "name")
@@ -139,4 +148,15 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    @ManyToMany()
+    @JoinTable(name = "user_department", joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "department_id"))
+    public Set<Department> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(Set<Department> department) {
+        this.departments = departments;
+    }
+
 }
